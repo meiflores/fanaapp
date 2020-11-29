@@ -10,7 +10,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *">
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *">-->
 
     <!-- Required meta tags-->
     <meta charset="utf-8">
@@ -43,7 +43,7 @@
                     <div class="navbar-bg"></div>
                     <div class="navbar-inner">
                         <div class="left"><i class="icon icon-back"></i></div>
-                        <div class="title">Page Title</div>
+                        <div class="title">Fana App</div>
                         <div class="right"><i class="icon icon-forward"></i></div>
                     </div>
                 </div>
@@ -60,43 +60,98 @@
                 <!-- Scrollable page content -->
                 <div class="page-content">
                     <div class="block">
-                        <p>Page content goes here</p>
-                        <!-- Link to another page -->
-                        <a href="/about/" data-view=".page-content">About app</a>
+                        <h2>¡Bienvenidx!</h2>
 
-                        <!-- In data-popup attribute we specify CSS selector of popup we need to open -->
-                        <p><a href="#" data-popup=".my-popup" class="popup-open">Open Popup</a></p>
 
-                        <!-- And somewhere in DOM -->
-                        <div class="popup my-popup">
-                            <div class="view">
-                                <div class="page">
-                                    <div class="navbar">
-                                        <div class="navbar-bg"></div>
-                                        <div class="navbar-inner">
-                                            <div class="title">Popup</div>
-                                            <div class="right">
-                                                <!-- Link to close popup -->
-                                                <a class="link popup-close">Close</a>
-                                            </div>
-                                        </div>
+
+                        <!---INICIO DEL FORMULARIO-->
+
+
+                        <form class="list" id="my-form">
+                            <ul>
+                              <li>
+                                <div class="item-content item-input">
+                                  <div class="item-inner">
+                                    <!--<div class="item-title item-label">E-mail</div>-->
+                                    <div class="item-input-wrap">
+                                      <input type="email" id="loginEmail" name="loginEmai" placeholder="E-mail">
                                     </div>
-                                    <div class="page-content">
-                                      ...
-                                    </div>
+                                  </div>
                                 </div>
-                            </div>
-                        </div>
+                              </li>
+                              <li>
+                                <div class="item-content item-input">
+                                  <div class="item-inner">
+                                    <!--<div class="item-title item-label">Clave</div>-->
+                                    <div class="item-input-wrap">
+                                      <input type="password" id="loginContraseña" name="loginContraseña" placeholder="Contraseña">
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                            </ul>
+                          </form>
+
+                          <div id="mensajeLogin"></div>
+                          <div class="block block-strong row">
+                            <div class="col"><a class="button" id="botonInicioSesion">Iniciar sesión</a></div>
+                          </div>
+
+                        <!---FIN DEL FORMULARIO-->
+
+
+
+
+
+                        <!-- Link to another page -->
+                        <p>¿Primera vez por acá? <a href="/registracion1/" data-view=".page-content">Registrate.</a></p>
+
+            
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.bundle.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+
+
+
+<script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+
+     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+
+
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDm8SsqTHtLz-pxB9eaNE70sWr5jHSup_U",
+    authDomain: "fana-app.firebaseapp.com",
+    databaseURL: "https://fana-app.firebaseio.com",
+    projectId: "fana-app",
+    storageBucket: "fana-app.appspot.com",
+    messagingSenderId: "816709585984",
+    appId: "1:816709585984:web:39722c7080a3cd135e23a5"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+
+
+   
+
+    
 </body>
 
 </html>

@@ -129,69 +129,61 @@ function funcionRegistro1() {
   usuario = $$('#registroUsuario').val();
   baseDeDatos = firebase.firestore();
   coleccionUsuarios = baseDeDatos.collection('Usuarios');
-  var referenciaUsuarios = baseDeDatos.collection("Usuarios").doc(usuario);
+  var yaExisteUsuario = false;
 
+  var referenciaUsuarios = baseDeDatos.collection("Usuarios").where("usuario", "==", usuario);
   referenciaUsuarios.get()
-    .then((docSnapshot) => {
-      if (docSnapshot.exists) {
-        referenciaUsuarios.onSnapshot((doc) => {
-          console.log("YA EXISTE EL USUARIO");
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        yaExisteUsuario  = true;
+        console.log('Existe usuario');
+      });
+    })
+    .catch(function (error) {
 
-        });
-      } else {
-        console.log("NO EXISTE EL USUARIO");
-        /* EL USUARIO NO EXISTE, SE PUEDE CREAR */
+      console.log("Error: ", error);
 
-        email = $$('#registroEmail').val();
-        clave = $$('#registroContraseña').val();
-        nombre = $$('#registroNombre').val();
-        apellido = $$('#registroApellido').val();
+    });
+  console.log(contador);
+  if (!yaExisteUsuario) {
+    email = $$('#registroEmail').val();
+    clave = $$('#registroContraseña').val();
+    nombre = $$('#registroNombre').val();
+    apellido = $$('#registroApellido').val();
 
-        firebase.auth().createUserWithEmailAndPassword(email, clave)
-          .then(function (parametroCallBack) {
-            /* EL MAIL ESTA OK */
-            datos = {
-              nombre: nombre,
-              apellido: apellido,
-              email: email
-            }
+    firebase.auth().createUserWithEmailAndPassword(email, clave)
+      .then(function (parametroCallBack) {
 
+        datos = {
+          nombre: nombre,
+          apellido: apellido,
+          usuario: usuario
 
-            coleccionUsuarios.doc(usuario).set(datos)
-              .then(function () {
-                mainView.router.navigate('/registracion2/');
-              })
+        }
 
-              .catch(function (e) {
-                console.log('algo falló');
-              })
-
-              ;
-
-
+        coleccionUsuarios.doc(email).set(datos)
+          .then(function () {
+            mainView.router.navigate('/registracion2/');
           })
 
-          .catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorMessage);
-            // ...
-          });
+          .catch(function (e) {
+            console.log('algo falló');
+          })
 
+          ;
 
+      })
 
-
-
-      }
-    });
-
-
-
-
-
-
-
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorMessage);
+        // ...
+      });
+  } else {
+    console.log('El usuario ingresado ya existe');
+  }
 
 
 

@@ -1,0 +1,60 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
+<div class="page" data-name="registracion2">
+  <div class="navbar">
+    <div class="navbar-inner sliding">
+      <div class="left">
+        <a href="#" class="link back">
+          <i class="icon icon-back"></i>
+          <span class="ios-only">Back</span>
+        </a>
+      </div>
+      <div class="title">PERFIL DEL USUARIO</div>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="block-title">Mi perfil</div>
+    <div class="block block-strong">
+      <div class="row">
+        <div class="col-100">
+          <h2 id="nombrePerfil"></h2>
+        </div>
+        <div class="col-100">
+          <h2 id="apellidoPerfil"></h2>
+        </div>
+        <div class="col-100"><img src="img/profileAvatar.png" id="fotoPerfil" style="border-radius: 50%; border:1px solid blue; width: 50vw; height: 50vw;"></div>
+        <div class="col-50"><button class="col button button-fill button-round" id="botonGaleria">Galería</button></div>
+        <div class="col-50"><button class="col button button-fill button-round" id="botonCamara">Cámara</button></div>
+        <div class="col-100"><button class="col button button-fill button-round" id="botonPerfil">Guardar</button></div>
+         <!---INICIO DEL FORMULARIO-->
+
+
+         <form class="list" id="my-form">
+          <ul>
+            <li>
+              <div class="item-content item-input">
+                <div class="item-inner">
+                  <!--<div class="item-title item-label">E-mail</div>-->
+                  <div class="item-input-wrap">
+                    <textarea placeholder="Bio" id="textAreaBio" maxlength="200"></textarea>
+                  </div>
+                  <p id="caracteresBio"></p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </form>
+
+      <!---FIN DEL FORMULARIO-->
+        
+        
+        
+        
+        
+        <div class="col"><a class="button" id="botonFinalizar">¡Finalizar registro!</a></div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
