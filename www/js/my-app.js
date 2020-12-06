@@ -8,7 +8,7 @@ var app = new Framework7({
   // App Name
   name: 'My App',
   // App id
-  id: 'com.myapp.test',
+  id: 'io.melinaflores.fanaapp',
   // Enable swipe panel
   panel: {
     swipe: 'left',
@@ -52,6 +52,16 @@ var coleccionUsuarios;
 $$(document).on('deviceready', function () {
   console.log("Device is ready!");
 
+  //alert("paso1");
+
+  // intento sacar el splash en IOS
+  /*
+  Observable.timer(15000).subscribe(()=>{
+    this.splashScreen.hide();
+  });
+*/
+  navigator.splashscreen.hide();
+
   //$$('#botonInicioSesion').on('click', funcionLogin);
 
 });
@@ -67,6 +77,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   //console.log(e);
   $$('#botonInicioSesion').on('click', funcionLogin);
+  $$('#botonRegistrate').on('click', funcionRegistrate);
 })
 $$(document).on('page:init', '.page[data-name="registracion1"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
@@ -95,6 +106,8 @@ $$(document).on('page:init', '.page[data-name="panel"]', function (e) {
 $$(document).on('page:init', '.page[data-name="home"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   //console.log(e);
+  mostrarProductos();
+
 })
 
 /* MIS FUNCIONES */
@@ -185,17 +198,13 @@ function funcionRegistro1() {
 
       }
     });
-
-
-
-
-
-
-
-
-
-
 }
+
+
+function funcionRegistrate(){
+  mainView.router.navigate('/registracion1/');
+}
+
 
 function funcionRegistro2() {
 
@@ -251,6 +260,31 @@ function onErrorCamera(message) {
   alert('Failed because: ' + message);
 }
 
+
+//FUNCIONES HOME
+
+function mostrarProductos() {
+  console.log('Acá se van a mostrar los productos');
+  baseDeDatos = firebase.firestore();
+  var referenciaProductos = baseDeDatos.collection('Productos');
+  referenciaProductos.get()
+
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        console.log(doc.data().nombreProducto + " " + doc.data().marcaProducto + " " + doc.data().calificacionProducto);
+        $$('#contenedorMiniaturasHome').append('<div class="col-33 contenedorImagenHome"><div class="row"><div class="col-100"><img src="'+doc.data().miniaturaHome+'"></div><div class="col-100 text-align-center"><p>'+doc.data().nombreProducto+'</p><p>'+doc.data().marcaProducto+'</p></div></div> </div>');
+      });
+    })
+    .catch(function (error) {
+
+      console.log("Error: ", error);
+
+    });
+
+
+
+
+}
 
 
 

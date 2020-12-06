@@ -84,4 +84,7 @@
 	font-family: 'Poppins', Arial, sans-serif;
 }
 
+.spaceEvenly{
+  justify-content: space-evenly;
+}
 

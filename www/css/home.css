@@ -1,0 +1,22 @@
+#homeSuperior{
+    background-color: blue;
+}
+
+#homeMedio{
+    background-color: coral;
+    height: auto;
+}
+
+#homeInferior{
+    background-color: darkgoldenrod;
+}
+
+.contenedorImagenHome{
+    background-color: darkgreen;
+    margin-bottom: 5%;
+}
+
+.contenedorImagenHome img{
+    width: 100%;
+}
+
