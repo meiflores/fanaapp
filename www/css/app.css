@@ -79,12 +79,18 @@
 }
 
 
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap');
 
 * {
-	font-family: 'Poppins', Arial, sans-serif;
+  /*font-family: 'Poppins', Arial, sans-serif;*/
+  font-family: 'Lato', sans-serif;
 }
 
 .spaceEvenly{
   justify-content: space-evenly;
+}
+
+.page{
+  background-color: #ffffff;
 }
 

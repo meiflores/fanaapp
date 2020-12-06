@@ -1,22 +1,32 @@
-#homeSuperior{
-    background-color: blue;
-}
+
 
 #homeMedio{
-    background-color: coral;
     height: auto;
 }
 
-#homeInferior{
-    background-color: darkgoldenrod;
-}
 
-.contenedorImagenHome{
-    background-color: darkgreen;
+.contenedorProductoHome{
     margin-bottom: 5%;
 }
 
-.contenedorImagenHome img{
+.contenedorProductoHome img{
     width: 100%;
 }
 
+.nombreProductoHome{
+    height: 4em;
+    font-size: 0.8em;
+    margin: 0;
+}
+
+.marcaProductoHome{
+    height: 2em;
+    font-size: 0.8em;
+    margin: 0;
+    color: gray;
+}
+
+#contenedorImagenHome{
+    border-bottom: 1px solid gray;
+    margin-bottom: 1em;
+}

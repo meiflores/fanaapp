@@ -272,7 +272,7 @@ function mostrarProductos() {
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         console.log(doc.data().nombreProducto + " " + doc.data().marcaProducto + " " + doc.data().calificacionProducto);
-        $$('#contenedorMiniaturasHome').append('<div class="col-33 contenedorImagenHome"><div class="row"><div class="col-100"><img src="'+doc.data().miniaturaHome+'"></div><div class="col-100 text-align-center"><p>'+doc.data().nombreProducto+'</p><p>'+doc.data().marcaProducto+'</p></div></div> </div>');
+        $$('#contenedorMiniaturasHome').append('<div class="col-33 contenedorProductoHome"><div class="row"><div class="col-100" id="contenedorImagenHome"><img src="'+doc.data().miniaturaHome+'"></div><div class="col-100 text-align-center"><p class="nombreProductoHome">'+doc.data().nombreProducto+'</p><p class="marcaProductoHome">'+doc.data().marcaProducto+'</p></div></div> </div>');
       });
     })
     .catch(function (error) {
