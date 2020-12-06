@@ -32,6 +32,10 @@ var app = new Framework7({
       url: 'panel.html',
     },
     {
+      path: '/paginaProducto/',
+      url: 'paginaProducto.html',
+    },
+    {
       path: '/home/',
       url: 'home.html',
     },
@@ -107,6 +111,15 @@ $$(document).on('page:init', '.page[data-name="home"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   //console.log(e);
   mostrarProductos();
+  $$('body').on('click', '.contenedorProductoHome', function(){
+    mainView.router.navigate('/paginaProducto/');
+  });
+
+})
+
+$$(document).on('page:init', '.page[data-name="paginaProducto"]', function (e) {
+  // Do something here when page with data-name="about" attribute loaded and initialized
+  //console.log(e);
 
 })
 
@@ -203,6 +216,7 @@ function funcionRegistro1() {
 
 function funcionRegistrate(){
   mainView.router.navigate('/registracion1/');
+  $$('#mensajeLogin').text('Estoy funcionando');
 }
 
 
@@ -285,6 +299,7 @@ function mostrarProductos() {
 
 
 }
+
 
 
 

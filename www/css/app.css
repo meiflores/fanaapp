@@ -94,3 +94,28 @@
   background-color: #ffffff;
 }
 
+.appbar-inner .f7-icons{
+  color: #000000;
+}
+
+.botonGris{
+  background-color: #47525E;
+}
+
+/* ESTILOS PAGINA PRODUCTO*/
+
+#tabsProductos{
+  border: 1px solid #47525E;
+  border-radius: 5px;
+}
+
+#tabsProductos a{
+  color: #47525E;
+  height: 2em;
+}
+
+a.tab-link.col.tab-link-active{
+  background-color: #47525E;
+  border-radius: 5px;
+  color: #ffffff !important;
+}
