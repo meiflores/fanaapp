@@ -119,3 +119,9 @@ a.tab-link.col.tab-link-active{
   border-radius: 5px;
   color: #ffffff !important;
 }
+
+/* ESTILOS APPBAR*/
+
+.oculto{
+  display: none !important;
+}

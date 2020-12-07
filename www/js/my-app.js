@@ -32,7 +32,7 @@ var app = new Framework7({
       url: 'panel.html',
     },
     {
-      path: '/paginaProducto/',
+      path: '/paginaProducto/:id/',
       url: 'paginaProducto.html',
     },
     {
@@ -74,6 +74,12 @@ $$(document).on('deviceready', function () {
 $$(document).on('page:init', function (e) {
   // Do something here when page loaded and initialized
   //console.log(e);
+  $$('#flechaAtras').on('click', function(){
+    mainView.router.back();
+    $$('#flechaAtras').addClass('oculto');
+    $$('#iconoBuscador').removeClass('oculto');
+    $$('#iconoMenu').removeClass('oculto');
+  })
 })
 
 // Option 2. Using live 'page:init' event handlers for each page
@@ -112,7 +118,9 @@ $$(document).on('page:init', '.page[data-name="home"]', function (e) {
   //console.log(e);
   mostrarProductos();
   $$('body').on('click', '.contenedorProductoHome', function(){
-    mainView.router.navigate('/paginaProducto/');
+    var idProducto = $$(this).attr('id');
+    console.log(idProducto);
+    mainView.router.navigate('/paginaProducto/'+idProducto+'/');
   });
 
 })
@@ -120,6 +128,12 @@ $$(document).on('page:init', '.page[data-name="home"]', function (e) {
 $$(document).on('page:init', '.page[data-name="paginaProducto"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   //console.log(e);
+  $$('#flechaAtras').removeClass('oculto');
+  $$('#iconoMenu').addClass('oculto');
+  $$('#iconoBuscador').addClass('oculto');
+
+  var idProducto = app.view.main.router.currentRoute.params.id;
+  mostrarProductoEnPagina(idProducto);
 
 })
 
@@ -286,7 +300,7 @@ function mostrarProductos() {
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         console.log(doc.data().nombreProducto + " " + doc.data().marcaProducto + " " + doc.data().calificacionProducto);
-        $$('#contenedorMiniaturasHome').append('<div class="col-33 contenedorProductoHome"><div class="row"><div class="col-100" id="contenedorImagenHome"><img src="'+doc.data().miniaturaHome+'"></div><div class="col-100 text-align-center"><p class="nombreProductoHome">'+doc.data().nombreProducto+'</p><p class="marcaProductoHome">'+doc.data().marcaProducto+'</p></div></div> </div>');
+        $$('#contenedorMiniaturasHome').append('<div class="col-33 contenedorProductoHome" id="'+doc.id+'"><div class="row"><div class="col-100" id="contenedorImagenHome"><img src="'+doc.data().miniaturaHome+'"></div><div class="col-100 text-align-center"><p class="nombreProductoHome">'+doc.data().nombreProducto+'</p><p class="marcaProductoHome">'+doc.data().marcaProducto+'</p></div></div> </div>');
       });
     })
     .catch(function (error) {
@@ -294,10 +308,29 @@ function mostrarProductos() {
       console.log("Error: ", error);
 
     });
+}
 
+// FUNCIONES PÁGINA DE PRODUCTO
 
+function mostrarProductoEnPagina(idProducto){
+  baseDeDatos = firebase.firestore();
+  var referenciaProductos = baseDeDatos.collection('Productos').doc(idProducto);
+  referenciaProductos.get()
 
-
+  .then(function(doc) {
+    
+     $$('#nombreProducto').text(doc.data().nombreProducto);
+     $$('#marcaProducto').text(doc.data().marcaProducto);
+     $$('#descripcionProducto').text(doc.data().descripcionProducto);
+     $$('#ingredientesProducto').text(doc.data().ingredientesProducto);
+     $$('#bannerProducto').attr('src', doc.data().bannerProducto);
+    
+    })
+    .catch(function(error) {
+    
+    console.log("Error: " , error);
+    
+    });
 }
 
 
