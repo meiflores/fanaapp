@@ -36,6 +36,10 @@ var app = new Framework7({
       url: 'paginaProducto.html',
     },
     {
+      path: '/paginaDejarReview/:id/',
+      url: 'paginaDejarReview.html',
+    },
+    {
       path: '/home/',
       url: 'home.html',
     },
@@ -51,6 +55,8 @@ var maxCaracteresBio = 200;
 var email;
 var baseDeDatos;
 var coleccionUsuarios;
+var usuario;
+
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
@@ -74,11 +80,8 @@ $$(document).on('deviceready', function () {
 $$(document).on('page:init', function (e) {
   // Do something here when page loaded and initialized
   //console.log(e);
-  $$('#flechaAtras').on('click', function(){
+  $$('#flechaAtras').on('click', function () {
     mainView.router.back();
-    $$('#flechaAtras').addClass('oculto');
-    $$('#iconoBuscador').removeClass('oculto');
-    $$('#iconoMenu').removeClass('oculto');
   })
 })
 
@@ -117,13 +120,23 @@ $$(document).on('page:init', '.page[data-name="home"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   //console.log(e);
   mostrarProductos();
-  $$('body').on('click', '.contenedorProductoHome', function(){
+  $$('body').on('click', '.contenedorProductoHome', function () {
     var idProducto = $$(this).attr('id');
     //console.log(idProducto);
-    mainView.router.navigate('/paginaProducto/'+idProducto+'/');
+    mainView.router.navigate('/paginaProducto/' + idProducto + '/');
   });
 
+
+
 })
+
+$$(document).on('page:reinit', '.page[data-name="home"]', function (e) {
+  $$('#flechaAtras').addClass('oculto');
+  $$('#iconoMenu').removeClass('oculto');
+  $$('#iconoBuscador').removeClass('oculto');
+});
+
+
 
 $$(document).on('page:init', '.page[data-name="paginaProducto"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
@@ -136,7 +149,113 @@ $$(document).on('page:init', '.page[data-name="paginaProducto"]', function (e) {
   mostrarProductoEnPagina(idProducto);
   mostrarReviewsEnPaginaProducto(idProducto);
 
+  $$('#botonDejarReview').on('click', function () {
+    mainView.router.navigate('/paginaDejarReview/' + idProducto + '/');
+  })
+
+  $$('#fabReview').on('click', function () {
+    mainView.router.navigate('/paginaDejarReview/' + idProducto + '/');
+  })
+
 })
+
+$$(document).on('page:reinit', '.page[data-name="paginaProducto"]', function (e){
+  var idProducto = app.view.main.router.currentRoute.params.id;
+  mostrarReviewsEnPaginaProducto(idProducto);
+})
+
+
+$$(document).on('page:init', '.page[data-name="paginaDejarReview"]', function (e) {
+  // Do something here when page with data-name="about" attribute loaded and initialized
+  //console.log(e);
+
+  var idProducto = app.view.main.router.currentRoute.params.id;
+  console.log(idProducto);
+  mostrarProductoEnPaginaReview(idProducto);
+
+  var minCaracteresTextAreaReview = 200;
+
+  $$("#textAreaDejarReview").keyup(function () {
+    var caracteresFaltantes = minCaracteresTextAreaReview - $$(this).val().length;
+    $$('#caracteresFaltantesTextAreaReview').text('¡Te faltan ' + caracteresFaltantes + ' caracteres!');
+    if (caracteresFaltantes <= 0) {
+      $$('#caracteresFaltantesTextAreaReview').addClass('oculto');
+    } else {
+      $$('#caracteresFaltantesTextAreaReview').removeClass('oculto');
+    }
+
+  });
+
+  var calificacionSeleccionadaReview;
+
+  $$('#estrella1').on('click', function () {
+    calificacionSeleccionadaReview = 1;
+    $$(this).text('star_fill');
+    $$('#estrella2').text('star');
+    $$('#estrella3').text('star');
+    $$('#estrella4').text('star');
+    $$('#estrella5').text('star');
+  })
+
+  $$('#estrella2').on('click', function () {
+    calificacionSeleccionadaReview = 2;
+    $$('#estrella1').text('star_fill');
+    $$(this).text('star_fill');
+    $$('#estrella3').text('star');
+    $$('#estrella4').text('star');
+    $$('#estrella5').text('star');
+  })
+
+  $$('#estrella3').on('click', function () {
+    calificacionSeleccionadaReview = 3;
+    $$('#estrella1').text('star_fill');
+    $$('#estrella2').text('star_fill');
+    $$(this).text('star_fill');
+    $$('#estrella4').text('star');
+    $$('#estrella5').text('star');
+  })
+
+  $$('#estrella4').on('click', function () {
+    calificacionSeleccionadaReview = 4;
+    $$('#estrella1').text('star_fill');
+    $$('#estrella2').text('star_fill');
+    $$('#estrella3').text('star_fill');
+    $$(this).text('star_fill');
+    $$('#estrella5').text('star');
+  })
+
+  $$('#estrella5').on('click', function () {
+    calificacionSeleccionadaReview = 5;
+    $$('#estrella1').text('star_fill');
+    $$('#estrella2').text('star_fill');
+    $$('#estrella3').text('star_fill');
+    $$('#estrella4').text('star_fill');
+    $$(this).text('star_fill');
+  })
+
+
+
+  $$('#botonEnviarReview').on('click', function () {
+    var contenidoTituloReview = $$('#textAreaTituloReview').val();
+    var contenidoReview = $$('#textAreaDejarReview').val();
+    registrarReviewEnBaseDeDatos(idProducto, usuario, contenidoReview, contenidoTituloReview, calificacionSeleccionadaReview);
+    console.log(contenidoTituloReview + contenidoReview + calificacionSeleccionadaReview + usuario + idProducto);
+  });
+
+
+
+
+
+
+
+
+})
+
+
+
+
+
+
 
 /* MIS FUNCIONES */
 
@@ -148,6 +267,23 @@ function funcionLogin() {
 
   firebase.auth().signInWithEmailAndPassword(email, clave)
     .then(function () {
+
+      baseDeDatos = firebase.firestore();
+      var referenciaUsuarios = baseDeDatos.collection('Usuarios').where('email', '==', email);
+      referenciaUsuarios.get()
+
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          usuario = doc.id;
+        });
+      })  
+
+        .catch(function (error) {
+
+          console.log("Error: ", error);
+
+        });
+
 
       mainView.router.navigate('/home/');
       //console.log('usuario ok');
@@ -229,7 +365,7 @@ function funcionRegistro1() {
 }
 
 
-function funcionRegistrate(){
+function funcionRegistrate() {
   mainView.router.navigate('/registracion1/');
   $$('#mensajeLogin').text('Estoy funcionando');
 }
@@ -293,7 +429,7 @@ function onErrorCamera(message) {
 //FUNCIONES HOME
 
 function mostrarProductos() {
- // console.log('Acá se van a mostrar los productos');
+  // console.log('Acá se van a mostrar los productos');
   baseDeDatos = firebase.firestore();
   var referenciaProductos = baseDeDatos.collection('Productos');
   referenciaProductos.get()
@@ -301,7 +437,7 @@ function mostrarProductos() {
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         //console.log(doc.data().nombreProducto + " " + doc.data().marcaProducto + " " + doc.data().calificacionProducto);
-        $$('#contenedorMiniaturasHome').append('<div class="col-33 contenedorProductoHome" id="'+doc.id+'"><div class="row"><div class="col-100" id="contenedorImagenHome"><img src="'+doc.data().miniaturaHome+'"></div><div class="col-100 text-align-center"><p class="nombreProductoHome">'+doc.data().nombreProducto+'</p><p class="marcaProductoHome">'+doc.data().marcaProducto+'</p></div></div> </div>');
+        $$('#contenedorMiniaturasHome').append('<div class="col-33 contenedorProductoHome" id="' + doc.id + '"><div class="row"><div class="col-100" id="contenedorImagenHome"><img src="' + doc.data().miniaturaHome + '"></div><div class="col-100 text-align-center"><p class="nombreProductoHome">' + doc.data().nombreProducto + '</p><p class="marcaProductoHome">' + doc.data().marcaProducto + '</p></div></div> </div>');
       });
     })
     .catch(function (error) {
@@ -313,59 +449,108 @@ function mostrarProductos() {
 
 // FUNCIONES PÁGINA DE PRODUCTO
 
-function mostrarProductoEnPagina(idProducto){
+function mostrarProductoEnPagina(idProducto) {
   baseDeDatos = firebase.firestore();
   var referenciaProductos = baseDeDatos.collection('Productos').doc(idProducto);
   referenciaProductos.get()
 
-  .then(function(doc) {
-    
-     $$('#nombreProducto').text(doc.data().nombreProducto);
-     $$('#marcaProducto').text(doc.data().marcaProducto);
-     $$('#descripcionProducto').text(doc.data().descripcionProducto);
-     $$('#ingredientesProducto').text(doc.data().ingredientesProducto);
-     $$('#bannerProducto').attr('src', doc.data().bannerProducto);
-    
+    .then(function (doc) {
+
+      $$('#nombreProducto').text(doc.data().nombreProducto);
+      $$('#marcaProducto').text(doc.data().marcaProducto);
+      $$('#descripcionProducto').text(doc.data().descripcionProducto);
+      $$('#ingredientesProducto').text(doc.data().ingredientesProducto);
+      $$('#bannerProducto').attr('src', doc.data().bannerProducto);
+
     })
-    .catch(function(error) {
-    
-    console.log("Error: " , error);
-    
+    .catch(function (error) {
+
+      console.log("Error: ", error);
+
     });
 }
 
-function mostrarReviewsEnPaginaProducto(idProducto){
+function mostrarReviewsEnPaginaProducto(idProducto) {
   baseDeDatos = firebase.firestore();
-  var referenciaReviews = baseDeDatos.collection('Reviews').where('idProducto', '==', idProducto);
+  var referenciaReviews = baseDeDatos.collection('Reviews').where('idProducto', '==', idProducto).orderBy('fechaCreacion','desc');
   referenciaReviews.get()
 
-  .then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-     
-      var referenciaUsuarios = baseDeDatos.collection('Usuarios').doc(doc.data().usuario);
-      referenciaUsuarios.get()
+    .then(function (querySnapshot) {
+      $$('#contenedorReviewsGeneral').empty();
+      querySnapshot.forEach(function (doc) {
 
-      .then(function(doc2) {
-        
+        var referenciaUsuarios = baseDeDatos.collection('Usuarios').doc(doc.data().usuario);
+        referenciaUsuarios.get()
 
-        $$('#contenedorReviewsGeneral').append('<div class="row contenedorReviewIndividual"><div class="col-20"><div class="row"><div class="col-100"><img src="'+doc2.data().fotoPerfilUsuario+'" class="avatarPaginaProducto"></div><div class="col-100"><p class="nombreUsuarioPaginaProducto">'+doc.data().usuario+'</p></div></div></div><div class="col-80" ><div class="row"><div class="col-100" id="contenedorEstrellasReview"><i class="f7-icons estrellaReviewProducto">star_fill</i><i class="f7-icons estrellaReviewProducto">star_fill</i><i class="f7-icons estrellaReviewProducto">star_fill</i><i class="f7-icons estrellaReviewProducto">star_fill</i><i class="f7-icons estrellaReviewProducto">star</i></div><div class="col-100"><p class="tituloReviewEnPaginaProducto">'+doc.data().titulo+'</p></div><div class="col-100"><p class="contenidoReviewEnPaginaProducto">'+doc.data().texto+'</p></div></div></div></div>');
+          .then(function (doc2) {
 
-       
-       })
-       .catch(function(error) {
-       
-       console.log("Error: " , error);
-       
-       });
 
-     
+            $$('#contenedorReviewsGeneral').append('<div class="row contenedorReviewIndividual"><div class="col-20"><div class="row"><div class="col-100"><img src="' + doc2.data().fotoPerfilUsuario + '" class="avatarPaginaProducto"></div><div class="col-100"><p class="nombreUsuarioPaginaProducto">' + doc.data().usuario + '</p></div></div></div><div class="col-80" ><div class="row"><div class="col-100" id="contenedorEstrellasReview"><i class="f7-icons estrellaReviewProducto">star_fill</i><i class="f7-icons estrellaReviewProducto">star_fill</i><i class="f7-icons estrellaReviewProducto">star_fill</i><i class="f7-icons estrellaReviewProducto">star_fill</i><i class="f7-icons estrellaReviewProducto">star</i></div><div class="col-100"><p class="tituloReviewEnPaginaProducto">' + doc.data().titulo + '</p></div><div class="col-100"><p class="contenidoReviewEnPaginaProducto">' + doc.data().texto + '</p></div></div></div></div>');
+
+
+          })
+          .catch(function (error) {
+
+            console.log("Error: ", error);
+
+          });
+
+
+      });
+    })
+
+    .catch(function (error) {
+
+      console.log("Error: ", error);
+
     });
-  })
 
-  .catch(function(error) {
-    
-    console.log("Error: " , error);
-    
+}
+
+//FUNCIONES EN PAGINA DEJAR REVIEW
+
+function mostrarProductoEnPaginaReview(idProducto) {
+  baseDeDatos = firebase.firestore();
+  var referenciaProductos = baseDeDatos.collection('Productos').doc(idProducto);
+  referenciaProductos.get()
+
+    .then(function (doc) {
+      console.log(doc.data().nombreProducto);
+      $$('#nombreProductoDejarReview').text(doc.data().nombreProducto);
+      $$('#marcaProductoDejarReview').text(doc.data().marcaProducto);
+    })
+    .catch(function (error) {
+
+      console.log("Error: ", error);
+
     });
+}
+
+function volverAtras() {
+  mainView.router.back();
+}
+
+function registrarReviewEnBaseDeDatos(idProducto, usuario, contenidoReview, contenidoTituloReview, calificacionSeleccionadaReview){
+ 
+  baseDeDatos = firebase.firestore();
+ 
+  var cargaDeDatosReview = {
+    idProducto: idProducto,
+    usuario: usuario,
+    texto: contenidoReview,
+    titulo: contenidoTituloReview,
+    valoracion: calificacionSeleccionadaReview
+    };
+
+    baseDeDatos.collection("Reviews").doc().set(cargaDeDatosReview)
+
+    .then(function(){
+      app.dialog.alert('Tu reseña se añadió correctamente', 'Yay!', volverAtras);
+    })
+
+    .catch(function(error){
+      console.error("El error fue: ", error);
+    })
+
 
 }

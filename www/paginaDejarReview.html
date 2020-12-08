@@ -1,0 +1,78 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
+<div class="page" data-name="paginaDejarReview">
+
+    <div class="toolbar toolbar-bottom">
+        <div class="toolbar-inner" style="justify-content: center;">
+            <button class="col button button-small button-fill color-pink" id="botonEnviarReview">¡Enviar mi
+                review!</button>
+        </div>
+      </div>
+
+    <div class="page-content">
+
+
+        <!--INICIO HEADER CON NOMBRE Y MARCA DE PRODUCTO-->
+        <div class="row">
+            <div class="col-100" style="height: auto;  line-height: auto;">
+                <p style="text-align: center; font-size: 2em; margin: 0;" id="nombreProductoDejarReview"></p>
+            </div>
+            <div class="col-100" style="height: 3em; line-height: 3em;">
+                <p style="text-align: center; font-size: 1.5em; margin: 0; color: gray;" id="marcaProductoDejarReview"></p>
+            </div>
+        </div>
+        <!--FIN HEADER CON NOMBRE Y MARCA DE PRODUCTO-->
+
+       <!-- <div class="block-title">Label + Input</div>-->
+<div class="list no-hairlines-md">
+  <ul>
+    <li class="item-content item-input">
+      <div class="item-inner">
+        <div class="item-title item-label">Título</div>
+        <div class="item-input-wrap">
+          <input id="textAreaTituloReview" minlength="10" maxlength="40" type="text" placeholder="Ingresá un título que resuma tu reseña">
+          <span class="input-clear-button"></span>
+        </div>
+      </div>
+    </li>
+    <li class="item-content item-input">
+        <div class="item-inner">
+          <div class="item-title item-label">¡Contanos tu experiencia!</div>
+          <div class="item-input-wrap">
+            <textarea id="textAreaDejarReview" class="resizable" minlength="200" placeholder="Escribí acá tu experiencia con el producto en, al menos, 200 caracteres"></textarea>
+          </div>
+          <p id="caracteresFaltantesTextAreaReview"></p>
+        </div>
+      </li>
+      <li class="item-content item-input">
+        <div class="item-inner">
+          <div class="item-title item-label">Seleccioná la cantidad de estrellas que se merece</div>
+          <div class="item-input-wrap">
+            <div class="row">
+                <div class="col-100" id="contenedorCalificacionProductoReview">
+                    <i id="estrella1" class="f7-icons estrellaCalificacionReview">star</i>
+                    <i id="estrella2" class="f7-icons estrellaCalificacionReview">star</i>
+                    <i id="estrella3" class="f7-icons estrellaCalificacionReview">star</i>
+                    <i id="estrella4" class="f7-icons estrellaCalificacionReview">star</i>
+                    <i id="estrella5" class="f7-icons estrellaCalificacionReview">star</i>
+                </div>
+            </div>
+          </div>
+        </div>
+      </li>
+  </ul>
+</div>
+
+
+
+
+
+        <div class="row">
+            <div class="col-100" id="contenedorReviewsGeneral"></div>
+        </div>
+
+
+
+    
+
+    </div>
+</div>

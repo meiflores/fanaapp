@@ -188,3 +188,29 @@ a.tab-link.col.tab-link-active{
 .oculto{
   display: none !important;
 }
+
+/* ESTILOS PAGINA DEJAR REVIEW*/
+
+#textAreaDejarReview{
+  height: 7em;
+}
+
+#textAreaTituloReview{
+  height: 2.5em;
+}
+
+#caracteresFaltantesTextAreaReview{
+  margin: 0;
+  font-size: 0.8em;
+  color: gray;
+}
+
+#contenedorCalificacionProductoReview{
+  padding: 10px 0;
+  text-align: center;
+}
+
+.estrellaCalificacionReview{
+  font-size: 2em;
+  color: #47525E;
+}
