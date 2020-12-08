@@ -120,6 +120,69 @@ a.tab-link.col.tab-link-active{
   color: #ffffff !important;
 }
 
+#descripcionProducto{
+  text-align: justify;
+  padding: 10px;
+}
+
+#ingredientesProducto{
+  text-align: justify;
+  padding: 10px;
+}
+
+
+.avatarPaginaProducto{
+  width: 100%;
+  border-radius: 50%;
+}
+
+.nombreUsuarioPaginaProducto{
+  height: auto;
+  line-height: auto;
+  font-size: 0.8em;
+  text-align: center;
+  margin: 0;
+  color: gray;
+}
+
+.tituloReviewEnPaginaProducto{
+  margin: 0;
+  font-size: 1em;
+  height: auto;
+  font-weight: bold;
+}
+
+.contenidoReviewEnPaginaProducto{
+  margin: 0;
+  height: auto;
+  text-align: justify;
+}
+
+.estrellaReviewProducto{
+  font-size: 1.3em;
+  color: #47525E;
+}
+
+.estrellaCalificacionProducto{
+  font-size: 2.5em;
+  color: #47525E;
+}
+
+#contenedorCalificacionProducto{
+  height: auto;
+  text-align: center;
+  padding: 10px 0;
+}
+
+#contenedorEstrellasReview{
+  padding: 5px 0;
+}
+
+.contenedorReviewIndividual{
+  padding: 10px;
+  border-bottom: 1px solid gray;
+}
+
 /* ESTILOS APPBAR*/
 
 .oculto{
