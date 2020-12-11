@@ -1,5 +1,7 @@
 <!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
 <div class="page" data-name="registracion2">
+
+  <!--
   <div class="navbar">
     <div class="navbar-inner sliding">
       <div class="left">
@@ -11,23 +13,34 @@
       <div class="title">PERFIL DEL USUARIO</div>
     </div>
   </div>
+-->
+
   <div class="page-content">
-    <div class="block-title">Mi perfil</div>
+    <h2 style="text-align: center;">Completá tu perfil</h2>
+    <!--<div class="block-title">Mi perfil</div>-->
     <div class="block block-strong">
       <div class="row">
-        <div class="col-100">
-          <h2 id="nombrePerfil"></h2>
+        
+        
+        <div class="col-100" style="text-align: center;" id="contenedorImagenPerfil">
+          <img src="img/profileAvatar.png" id="fotoPerfil" style="border-radius: 50%; border:1px solid pink; width: 35vw; height: 35vw;">
+        <div id="iconoCamaraPerfil">
+          <i class="f7-icons">camera</i>
         </div>
-        <div class="col-100">
-          <h2 id="apellidoPerfil"></h2>
         </div>
-        <div class="col-100"><img src="img/profileAvatar.png" id="fotoPerfil" style="border-radius: 50%; border:1px solid blue; width: 50vw; height: 50vw;"></div>
-        <div class="col-50"><button class="col button button-fill button-round" id="botonGaleria">Galería</button></div>
-        <div class="col-50"><button class="col button button-fill button-round" id="botonCamara">Cámara</button></div>
-        <div class="col-100"><button class="col button button-fill button-round" id="botonPerfil">Guardar</button></div>
-         <!---INICIO DEL FORMULARIO-->
+
+         
+          
+        
+          <div class="col-100 text-align-center">
+            <p class="nombreUsuarioPerfil" id="nombreUsuarioPerfil"></p>
+          </div>
 
 
+
+        
+        <!--INICIO DEL FORMULARIO-->
+        <div class="col-100">
          <form class="list" id="my-form">
           <ul>
             <li>
@@ -35,7 +48,7 @@
                 <div class="item-inner">
                   <!--<div class="item-title item-label">E-mail</div>-->
                   <div class="item-input-wrap">
-                    <textarea placeholder="Bio" id="textAreaBio" maxlength="200"></textarea>
+                    <textarea placeholder="Contanos un poco sobre vos :)" id="textAreaBio" maxlength="200"></textarea>
                   </div>
                   <p id="caracteresBio"></p>
                 </div>
@@ -43,14 +56,22 @@
             </li>
           </ul>
         </form>
+        </div>
 
       <!---FIN DEL FORMULARIO-->
         
         
         
         
-        
-        <div class="col"><a class="button" id="botonFinalizar">¡Finalizar registro!</a></div>
+      
+        <div class="col-100">
+          <p class="row">
+            <button class="col button button-large button-fill botonGris" id="botonFinalizar">¡Finalizar registro!</button>
+          </p>
+        </div>
+
+
+
       </div>
     </div>
 

@@ -1,6 +1,8 @@
 <!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
 <div class="page" data-name="registracion1">
-    <div class="navbar">
+    
+  <!--
+  <div class="navbar">
         <div class="navbar-inner sliding">
         <div class="left">
             <a href="#" class="link back">
@@ -8,98 +10,110 @@
             <span class="ios-only">Back</span>
             </a>
         </div>
-        <div class="title">Crear cuenta</div>
         </div>
     </div>
+    -->
+
     <div class="page-content">
-        <!--<div class="block-title">Inicio del registro</div>-->
-        <div class="block block-strong">
+      <h2 style="text-align: center;">Crear cuenta</h2>
+      <div class="row contenidoCentrado">
+        <div class="col">
+          <div class="block">
+            
+<!--<div class="block-title">Inicio del registro</div>-->
+<div class="block block-strong">
         
-            <!---INICIO DEL FORMULARIO-->
+  <!---INICIO DEL FORMULARIO-->
 
 
-            <form class="list" id="my-form">
-                <ul>
-                  <!-- INICIO INPUT NOMBRE -->
-                  <li>
-                    <div class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Nombre/s</div>
-                        <div class="item-input-wrap">
-                          <input type="text" id="registroNombre" name="registroNombre" >
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- FIN INPUT NOMBRE -->
-
-                  <!-- INICIO INPUT APELLIDO -->
-                  <li>
-                    <div class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Apellido/s</div>
-                        <div class="item-input-wrap">
-                          <input type="text" id="registroApellido" name="registroApellido" >
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- FIN INPUT APELLIDO -->
-                  
-                  <!-- INICIO INPUT USUARIO -->
-                  <li>
-                    <div class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Nombre de usuario</div>
-                        <div class="item-input-wrap">
-                          <input type="text" id="registroUsuario" name="registroUsuario" >
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- FIN INPUT USUARIO -->
-                  
-                  <!-- INICIO INPUT EMAIL -->
-                  <li>
-                    <div class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">E-mail</div>
-                        <div class="item-input-wrap">
-                          <input type="email" id="registroEmail" name="registroEmai" >
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- FIN INPUT EMAIL -->
-
-                  <!-- INICIO INPUT CONTRASEÑA -->
-                  <li>
-                    <div class="item-content item-input">
-                      <div class="item-inner">
-                        <div class="item-title item-label">Contraseña</div>
-                        <div class="item-input-wrap">
-        <input type="password" id="registroContraseña" name="registroContraseña" >
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- FIN INPUT CONTRASEÑA -->
-
-                </ul>
-              </form>
-              <div class="block">
-                <p class="row">
-                  <button class="col button button-large button-fill botonGris" id="botonSiguiente">Siguiente</button>
-                </p>
+  <form class="list" id="my-form">
+      <ul>
+        <!-- INICIO INPUT NOMBRE -->
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Nombre/s</div>
+              <div class="item-input-wrap">
+                <input type="text" id="registroNombre" name="registroNombre" >
               </div>
+            </div>
+          </div>
+        </li>
+        <!-- FIN INPUT NOMBRE -->
 
-            <!---FIN DEL FORMULARIO-->
+        <!-- INICIO INPUT APELLIDO -->
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Apellido/s</div>
+              <div class="item-input-wrap">
+                <input type="text" id="registroApellido" name="registroApellido" >
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- FIN INPUT APELLIDO -->
+        
+        <!-- INICIO INPUT USUARIO -->
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Nombre de usuario</div>
+              <div class="item-input-wrap">
+                <input type="text" id="registroUsuario" name="registroUsuario" >
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- FIN INPUT USUARIO -->
+        
+        <!-- INICIO INPUT EMAIL -->
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">E-mail</div>
+              <div class="item-input-wrap">
+                <input type="email" id="registroEmail" name="registroEmai" >
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- FIN INPUT EMAIL -->
+
+        <!-- INICIO INPUT CONTRASEÑA -->
+        <li>
+          <div class="item-content item-input">
+            <div class="item-inner">
+              <div class="item-title item-label">Contraseña</div>
+              <div class="item-input-wrap">
+<input type="password" id="registroContraseña" name="registroContraseña" >
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- FIN INPUT CONTRASEÑA -->
+
+      </ul>
+    </form>
+    <div class="block">
+      <p class="row">
+        <button class="col button button-large button-fill botonGris" id="botonSiguiente">Siguiente</button>
+      </p>
+    </div>
+
+  <!---FIN DEL FORMULARIO-->
+
+
+
+        </div>
+      </div>
+        
 
 
 
 
         
-        
+        </div>
         </div>
     </div>
 </div>

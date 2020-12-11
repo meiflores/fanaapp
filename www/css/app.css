@@ -102,6 +102,43 @@
   background-color: #47525E;
 }
 
+
+/* ESTILOS INDEX */
+
+.contenidoCentrado{
+  height: 100%;
+  align-items: center;
+}
+
+
+/* ESTILOS REGISTRACION 2 */
+
+.nombreUsuarioPaginaPerfil{
+  margin: 0;
+  color: gray;
+}
+
+#contenedorImagenPerfil{
+  position: relative;
+}
+
+#iconoCamaraPerfil{
+  position: absolute;
+  bottom: 5px;
+  left: 60%;
+  border-radius: 50%;
+  background-color: pink;
+  padding: 5px;
+
+}
+
+#iconoCamaraPerfil .f7-icons{
+  font-size: 1.5em;
+}
+
+
+
+
 /* ESTILOS PAGINA PRODUCTO*/
 
 #tabsProductos{

@@ -56,7 +56,7 @@ var email;
 var baseDeDatos;
 var coleccionUsuarios;
 var usuario;
-
+var fotoPerfilUsuario;
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
@@ -103,13 +103,32 @@ $$(document).on('page:init', '.page[data-name="registracion2"]', function (e) {
   //console.log(e);
 
   $$('#botonFinalizar').on('click', funcionRegistro2);
-  $$('#botonGaleria').on('click', funcionGaleria);
-  $$('#botonCamara').on('click', funcionCamara);
+  //$$('#botonGaleria').on('click', funcionGaleria);
+  //$$('#botonCamara').on('click', funcionCamara);
 
   $$("#textAreaBio").keyup(function () {
     var caracteresRestantes = maxCaracteresBio - $$(this).val().length;
     $$('#caracteresBio').text(caracteresRestantes + '/200');
   });
+
+  var actionSheetCamara = app.actions.create({
+    buttons: [
+      {
+        text: 'Tomar foto',
+        onClick: function(){funcionCamara();}
+      },
+      {
+        text: 'Elegir de la galería',
+        onClick: function(){funcionGaleria();}
+      }
+    ]
+  })
+
+  $$('#iconoCamaraPerfil').on('click', function () {
+    actionSheetCamara.open();
+});
+
+$$('#nombreUsuarioPerfil').text(usuario);
 
 })
 $$(document).on('page:init', '.page[data-name="panel"]', function (e) {
@@ -374,12 +393,12 @@ function funcionRegistrate() {
 function funcionRegistro2() {
 
   var textoBio = $$('#textAreaBio').val();
-  var imagenPerfil = $$('#fotoPerfil').attr('src');
+  
 
-  baseDeDatos.collection("Usuarios").doc(email).update
+  baseDeDatos.collection("Usuarios").doc(usuario).update
     ({
       bioPerfil: textoBio,
-      imagenDePerfil: imagenPerfil
+      fotoPerfilUsuario: fotoPerfilUsuario
     })
     .then(function () {
 
@@ -409,17 +428,67 @@ function funcionGaleria() {
 }
 
 function funcionCamara() {
+  console.log('Soy la camara');
   navigator.camera.getPicture(onSuccessCamera, onErrorCamera,
     {
       quality: 50,
       destinationType: Camera.DestinationType.FILE_URI,
-      sourceType: Camera.PictureSourceType.CAMERA
+      sourceType: Camera.PictureSourceType.CAMERA,
+      correctOrientation: true ,
+      cameraDirection:Camera.Direction.FRONT,
+      targetWidth:300,
+      targetHeight:300
     });
 }
 
 function onSuccessCamera(imageURI) {
   $$('#fotoPerfil').attr('src', imageURI);
+
+  var storageRef = firebase.storage().ref();
+  var getFileBlob = function(url, cb) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.responseType = "blob";
+      xhr.addEventListener('load', function() {
+          cb(xhr.response);
+      });
+      xhr.send();
+  }; 
+
+  var blobToFile = function(blob, name) {
+      blob.lastModifiedDate = new Date();
+      blob.name = name;
+      return blob;
+  };
+
+  var getFileObject = function(filePathOrUrl, cb) {
+      getFileBlob(filePathOrUrl, function(blob) {
+          cb(blobToFile(blob, 'test.jpg'));
+      });
+  };
+
+  getFileObject(imageURI, function(fileObject) {
+      var nombreFoto = "fotoPerfil"+ usuario; 
+    var uploadTask = storageRef.child('FotosDePerfil/'+nombreFoto+'.jpg').put(fileObject);
+
+      uploadTask.on('state_changed', function(snapshot) {
+          console.log(snapshot);
+      }, function(error) {
+          console.log(error);
+      }, function() {
+          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            console.log('File available at', downloadURL);
+            fotoPerfilUsuario=downloadURL;
+          });
+      });
+  });
+
+
+
+
 }
+
+
 
 function onErrorCamera(message) {
   alert('Failed because: ' + message);
@@ -539,7 +608,8 @@ function registrarReviewEnBaseDeDatos(idProducto, usuario, contenidoReview, cont
     usuario: usuario,
     texto: contenidoReview,
     titulo: contenidoTituloReview,
-    valoracion: calificacionSeleccionadaReview
+    valoracion: calificacionSeleccionadaReview,
+    fechaCreacion: firebase.firestore.FieldValue.serverTimestamp()
     };
 
     baseDeDatos.collection("Reviews").doc().set(cargaDeDatosReview)
