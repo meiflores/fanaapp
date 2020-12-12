@@ -40,6 +40,10 @@ var app = new Framework7({
       url: 'paginaDejarReview.html',
     },
     {
+      path: '/reestablecerPassword/',
+      url: 'reestablecerPassword.html',
+    },
+    {
       path: '/home/',
       url: 'home.html',
     },
@@ -91,7 +95,17 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   //console.log(e);
   $$('#botonInicioSesion').on('click', funcionLogin);
   $$('#botonRegistrate').on('click', funcionRegistrate);
+  $$('#botonReestablecerPassword').on('click', funcionReestablecerPassword);
 })
+
+
+$$(document).on('page:init', '.page[data-name="reestablecerPassword"]', function (e) {
+
+})
+  
+
+
+
 $$(document).on('page:init', '.page[data-name="registracion1"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   //console.log(e);
@@ -101,6 +115,7 @@ $$(document).on('page:init', '.page[data-name="registracion1"]', function (e) {
 $$(document).on('page:init', '.page[data-name="registracion2"]', function (e) {
   // Do something here when page with data-name="about" attribute loaded and initialized
   //console.log(e);
+
 
   $$('#botonFinalizar').on('click', funcionRegistro2);
   //$$('#botonGaleria').on('click', funcionGaleria);
@@ -136,8 +151,9 @@ $$(document).on('page:init', '.page[data-name="panel"]', function (e) {
   //console.log(e);
 })
 $$(document).on('page:init', '.page[data-name="home"]', function (e) {
-  // Do something here when page with data-name="about" attribute loaded and initialized
-  //console.log(e);
+  
+  $$('.appbar').removeClass('oculto');
+
   mostrarProductos();
   $$('body').on('click', '.contenedorProductoHome', function () {
     var idProducto = $$(this).attr('id');
@@ -278,6 +294,9 @@ $$(document).on('page:init', '.page[data-name="paginaDejarReview"]', function (e
 
 /* MIS FUNCIONES */
 
+
+/* FUNCIONES INDEX*/
+
 function funcionLogin() {
   // prueba@prueba.com 12345678
   email = $$('#loginEmail').val();
@@ -356,6 +375,19 @@ function funcionRegistro1() {
             coleccionUsuarios.doc(usuario).set(datos)
               .then(function () {
                 mainView.router.navigate('/registracion2/');
+
+                var toastIcon = app.toast.create({
+                  icon:'<i class="f7-icons">checkmark_alt</i>',
+                  text: '¡Usuario creado!',
+                  position: 'center',
+                  closeTimeout: 2000,
+              });
+              
+              toastIcon.open();
+
+
+
+
               })
 
               .catch(function (e) {
@@ -413,7 +445,9 @@ function funcionRegistro2() {
   mainView.router.navigate('/home/');
 }
 
-
+function funcionReestablecerPassword(){
+  mainView.router.navigate('/reestablecerPassword/');
+}
 
 
 
