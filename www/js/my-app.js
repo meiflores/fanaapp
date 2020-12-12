@@ -56,7 +56,7 @@ var email;
 var baseDeDatos;
 var coleccionUsuarios;
 var usuario;
-var fotoPerfilUsuario;
+var fotoPerfilUsuario = "https://firebasestorage.googleapis.com/v0/b/fana-app.appspot.com/o/FotosDePerfil%2FprofileAvatar.png?alt=media&token=22c8168c-d4ef-42d3-bb60-b384975285e5";
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
@@ -546,6 +546,9 @@ function mostrarReviewsEnPaginaProducto(idProducto) {
 
     .then(function (querySnapshot) {
       $$('#contenedorReviewsGeneral').empty();
+
+      var sumaDeValoracionesProducto = 0;
+
       querySnapshot.forEach(function (doc) {
 
         var referenciaUsuarios = baseDeDatos.collection('Usuarios').doc(doc.data().usuario);
@@ -553,8 +556,20 @@ function mostrarReviewsEnPaginaProducto(idProducto) {
 
           .then(function (doc2) {
 
+            var valoracionElegida = ''; 
 
-            $$('#contenedorReviewsGeneral').append('<div class="row contenedorReviewIndividual"><div class="col-20"><div class="row"><div class="col-100"><img src="' + doc2.data().fotoPerfilUsuario + '" class="avatarPaginaProducto"></div><div class="col-100"><p class="nombreUsuarioPaginaProducto">' + doc.data().usuario + '</p></div></div></div><div class="col-80" ><div class="row"><div class="col-100" id="contenedorEstrellasReview"><i class="f7-icons estrellaReviewProducto">star_fill</i><i class="f7-icons estrellaReviewProducto">star_fill</i><i class="f7-icons estrellaReviewProducto">star_fill</i><i class="f7-icons estrellaReviewProducto">star_fill</i><i class="f7-icons estrellaReviewProducto">star</i></div><div class="col-100"><p class="tituloReviewEnPaginaProducto">' + doc.data().titulo + '</p></div><div class="col-100"><p class="contenidoReviewEnPaginaProducto">' + doc.data().texto + '</p></div></div></div></div>');
+            sumaDeValoracionesProducto += doc.data().valoracion;
+
+            for(i=0; i<doc.data().valoracion; i++){
+              valoracionElegida += '<i class="f7-icons estrellaReviewProducto">star_fill</i>';
+            }
+
+            for(i=doc.data().valoracion; i<5; i++){
+              valoracionElegida += '<i class="f7-icons estrellaReviewProducto">star</i>';
+            }
+
+
+            $$('#contenedorReviewsGeneral').append('<div class="row contenedorReviewIndividual"><div class="col-20"><div class="row"><div class="col-100"><img src="' + doc2.data().fotoPerfilUsuario + '" class="avatarPaginaProducto"></div><div class="col-100"><p class="nombreUsuarioPaginaProducto">' + doc.data().usuario + '</p></div></div></div><div class="col-80" ><div class="row"><div class="col-100" id="contenedorEstrellasReview">'+valoracionElegida+ '</div><div class="col-100"><p class="tituloReviewEnPaginaProducto">' + doc.data().titulo + '</p></div><div class="col-100"><p class="contenidoReviewEnPaginaProducto">' + doc.data().texto + '</p></div></div></div></div>');
 
 
           })
@@ -566,6 +581,9 @@ function mostrarReviewsEnPaginaProducto(idProducto) {
 
 
       });
+
+      console.log(sumaDeValoracionesProducto);
+
     })
 
     .catch(function (error) {
