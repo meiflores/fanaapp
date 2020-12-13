@@ -97,7 +97,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   $$('#botonInicioSesion').on('click', funcionLogin);
   $$('#botonRegistrate').on('click', funcionRegistrate);
   $$('#botonReestablecerPassword').on('click', funcionIrPaginaPassword);
-  $$('#linkCerrarSesion').on('click', function(){
+  $$('#linkCerrarSesion').on('click', function () {
     $$('.appbar').addClass('oculto');
   })
 })
@@ -106,7 +106,7 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
 $$(document).on('page:init', '.page[data-name="reestablecerPassword"]', function (e) {
   $$('#enviarMailPassword').on('click', funcionReestablecerPassword);
 })
-  
+
 
 
 
@@ -134,45 +134,66 @@ $$(document).on('page:init', '.page[data-name="registracion2"]', function (e) {
     buttons: [
       {
         text: 'Tomar foto',
-        onClick: function(){funcionCamara();}
+        onClick: function () { funcionCamara(); }
       },
       {
         text: 'Elegir de la galería',
-        onClick: function(){funcionGaleria();}
+        onClick: function () { funcionGaleria(); }
       }
     ]
   })
 
   $$('#iconoCamaraPerfil').on('click', function () {
     actionSheetCamara.open();
-});
+  });
 
-$$('#nombreUsuarioPerfil').text(usuario);
+  $$('#nombreUsuarioPerfil').text(usuario);
 
 })
 
 
 
 $$(document).on('page:init', '.page[data-name="perfil"]', function (e) {
-  
+
   mostrarDatosPerfil(usuario);
 
   var actionSheetCamaraMiPerfil = app.actions.create({
     buttons: [
       {
         text: 'Tomar foto',
-        onClick: function(){funcionCamara();}
+        onClick: function () { funcionCamara(); }
       },
       {
         text: 'Elegir de la galería',
-        onClick: function(){funcionGaleria();}
+        onClick: function () { funcionGaleria(); }
       }
     ]
   })
 
   $$('#iconoCamaraMiPerfil').on('click', function () {
     actionSheetCamaraMiPerfil.open();
-});
+  });
+
+  $$('#linkEditarTextArea').on('click', function () {
+    $$('#textAreaBioMiPerfil').prop('disabled', false);
+    $$('#textAreaBioMiPerfil').css('font-style', 'normal');
+    $$('#textAreaBioMiPerfil').focus();
+    var textoBioTemporal = $$('#textAreaBioMiPerfil').val();
+    $$('#textAreaBioMiPerfil').val(' ');
+    $$('#textAreaBioMiPerfil').val(textoBioTemporal);
+
+  })
+
+  $$('#textAreaBioMiPerfil').keyup(function () {
+    $$('#botonGuardarCambiosMiPerfil').prop('disabled', false);
+    $$('#botonGuardarCambiosMiPerfil').removeClass('disabled');
+  })
+
+  $$('#botonGuardarCambiosMiPerfil').on('click', funcionActualizarBioMiPerfil);
+
+
+  mostrarReviewsEnMiPerfil();
+
 
 })
 
@@ -181,7 +202,7 @@ $$(document).on('page:init', '.page[data-name="perfil"]', function (e) {
 
 
 $$(document).on('page:init', '.page[data-name="home"]', function (e) {
-  
+
   $$('.appbar').removeClass('oculto');
 
   mostrarProductos();
@@ -224,7 +245,7 @@ $$(document).on('page:init', '.page[data-name="paginaProducto"]', function (e) {
 
 })
 
-$$(document).on('page:reinit', '.page[data-name="paginaProducto"]', function (e){
+$$(document).on('page:reinit', '.page[data-name="paginaProducto"]', function (e) {
   var idProducto = app.view.main.router.currentRoute.params.id;
   mostrarReviewsEnPaginaProducto(idProducto);
 })
@@ -340,11 +361,11 @@ function funcionLogin() {
       var referenciaUsuarios = baseDeDatos.collection('Usuarios').where('email', '==', email);
       referenciaUsuarios.get()
 
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          usuario = doc.id;
-        });
-      })  
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            usuario = doc.id;
+          });
+        })
 
         .catch(function (error) {
 
@@ -407,13 +428,13 @@ function funcionRegistro1() {
                 mainView.router.navigate('/registracion2/');
 
                 var toastIcon = app.toast.create({
-                  icon:'<i class="f7-icons">checkmark_alt</i>',
+                  icon: '<i class="f7-icons">checkmark_alt</i>',
                   text: '¡Usuario creado!',
                   position: 'center',
                   closeTimeout: 2000,
-              });
-              
-              toastIcon.open();
+                });
+
+                toastIcon.open();
 
 
 
@@ -455,7 +476,7 @@ function funcionRegistrate() {
 function funcionRegistro2() {
 
   var textoBio = $$('#textAreaBio').val();
-  
+
 
   baseDeDatos.collection("Usuarios").doc(usuario).update
     ({
@@ -474,41 +495,41 @@ function funcionRegistro2() {
   mainView.router.navigate('/home/');
 }
 
-function funcionIrPaginaPassword(){
+function funcionIrPaginaPassword() {
   mainView.router.navigate('/reestablecerPassword/');
 }
 
 
 //FUNCIONES REESTABLECER PASSWORD
 
-function funcionReestablecerPassword(){
-var mailParaRecuperar = $$('#inputReestablecerPassword').val();  
-var auth = firebase.auth();
+function funcionReestablecerPassword() {
+  var mailParaRecuperar = $$('#inputReestablecerPassword').val();
+  var auth = firebase.auth();
 
-auth.sendPasswordResetEmail(mailParaRecuperar).then(function() {
+  auth.sendPasswordResetEmail(mailParaRecuperar).then(function () {
 
-  var toastIcon = app.toast.create({
-    icon:'<i class="f7-icons">checkmark_alt</i>',
-    text: '¡Mail enviado!',
-    position: 'center',
-    closeTimeout: 2000,
-});
+    var toastIcon = app.toast.create({
+      icon: '<i class="f7-icons">checkmark_alt</i>',
+      text: '¡Mail enviado!',
+      position: 'center',
+      closeTimeout: 2000,
+    });
 
-toastIcon.open();
+    toastIcon.open();
 
-console.log('Mail enviado');
-}).catch(function(error) {
-  console.log(error);
-  var toastIconError = app.toast.create({
-    icon:'<i class="f7-icons">xmark</i>',
-    text: 'Ups! Hubo un error',
-    position: 'center',
-    closeTimeout: 2000,
-});
+    console.log('Mail enviado');
+  }).catch(function (error) {
+    console.log(error);
+    var toastIconError = app.toast.create({
+      icon: '<i class="f7-icons">xmark</i>',
+      text: 'Ups! Hubo un error',
+      position: 'center',
+      closeTimeout: 2000,
+    });
 
-toastIconError.open();
-  // An error happened.
-});
+    toastIconError.open();
+    // An error happened.
+  });
 }
 
 
@@ -529,10 +550,10 @@ function funcionCamara() {
       quality: 50,
       destinationType: Camera.DestinationType.FILE_URI,
       sourceType: Camera.PictureSourceType.CAMERA,
-      correctOrientation: true ,
-      cameraDirection:Camera.Direction.FRONT,
-      targetWidth:300,
-      targetHeight:300
+      correctOrientation: true,
+      cameraDirection: Camera.Direction.FRONT,
+      targetWidth: 300,
+      targetHeight: 300
     });
 }
 
@@ -540,50 +561,50 @@ function onSuccessCamera(imageURI) {
   $$('.imagenPerfil').attr('src', imageURI);
 
   var storageRef = firebase.storage().ref();
-  var getFileBlob = function(url, cb) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", url);
-      xhr.responseType = "blob";
-      xhr.addEventListener('load', function() {
-          cb(xhr.response);
-      });
-      xhr.send();
-  }; 
-
-  var blobToFile = function(blob, name) {
-      blob.lastModifiedDate = new Date();
-      blob.name = name;
-      return blob;
+  var getFileBlob = function (url, cb) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.responseType = "blob";
+    xhr.addEventListener('load', function () {
+      cb(xhr.response);
+    });
+    xhr.send();
   };
 
-  var getFileObject = function(filePathOrUrl, cb) {
-      getFileBlob(filePathOrUrl, function(blob) {
-          cb(blobToFile(blob, 'test.jpg'));
-      });
+  var blobToFile = function (blob, name) {
+    blob.lastModifiedDate = new Date();
+    blob.name = name;
+    return blob;
   };
 
-  getFileObject(imageURI, function(fileObject) {
-      var nombreFoto = "fotoPerfil"+ usuario; 
-    var uploadTask = storageRef.child('FotosDePerfil/'+nombreFoto+'.jpg').put(fileObject);
+  var getFileObject = function (filePathOrUrl, cb) {
+    getFileBlob(filePathOrUrl, function (blob) {
+      cb(blobToFile(blob, 'test.jpg'));
+    });
+  };
 
-      uploadTask.on('state_changed', function(snapshot) {
-          console.log(snapshot);
-      }, function(error) {
-          console.log(error);
-      }, function() {
-          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-            console.log('File available at', downloadURL);
-            fotoPerfilUsuario=downloadURL;
-            actualizarFotoPerfil();
-          });
+  getFileObject(imageURI, function (fileObject) {
+    var nombreFoto = "fotoPerfil" + usuario;
+    var uploadTask = storageRef.child('FotosDePerfil/' + nombreFoto + '.jpg').put(fileObject);
+
+    uploadTask.on('state_changed', function (snapshot) {
+      console.log(snapshot);
+    }, function (error) {
+      console.log(error);
+    }, function () {
+      uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+        console.log('File available at', downloadURL);
+        fotoPerfilUsuario = downloadURL;
+        actualizarFotoPerfil();
       });
+    });
   });
 
 }
 
-function actualizarFotoPerfil(){
+function actualizarFotoPerfil() {
 
-  
+
   baseDeDatos.collection("Usuarios").doc(usuario).update
     ({
       fotoPerfilUsuario: fotoPerfilUsuario
@@ -609,7 +630,7 @@ function onErrorCamera(message) {
 
 // FUNCIONES PERFIL
 
-function mostrarDatosPerfil(usuario){
+function mostrarDatosPerfil(usuario) {
   $$('#nombreUsuarioMiPerfil').text(usuario);
 
   baseDeDatos = firebase.firestore();
@@ -619,14 +640,90 @@ function mostrarDatosPerfil(usuario){
     .then(function (doc) {
       $$('#fotoMiPerfil').attr('src', doc.data().fotoPerfilUsuario);
       $$('#textAreaBioMiPerfil').text(doc.data().bioPerfil);
-      $$('#nombreApellidoMiPerfil').text(doc.data().nombre +' '+ doc.data().apellido)
+      $$('#nombreApellidoMiPerfil').text(doc.data().nombre + ' ' + doc.data().apellido)
     })
     .catch(function (error) {
 
       console.log("Error: ", error);
 
     });
+}
 
+function funcionActualizarBioMiPerfil() {
+  var textoBio = $$('#textAreaBioMiPerfil').val();
+
+  baseDeDatos.collection("Usuarios").doc(usuario).update
+    ({
+      bioPerfil: textoBio,
+    })
+    .then(function () {
+      var toastIconMiPerfil = app.toast.create({
+        icon: '<i class="f7-icons">checkmark_alt</i>',
+        text: '¡Se guardaron los cambios!',
+        position: 'center',
+        closeTimeout: 2000,
+      });
+
+      toastIconMiPerfil.open();
+
+      $$('#textAreaBioMiPerfil').prop('disabled', true);
+      $$('#textAreaBioMiPerfil').css('font-style', 'italic');
+      $$('#botonGuardarCambiosMiPerfil').prop('disabled', true);
+      $$('#botonGuardarCambiosMiPerfil').addClass('disabled');
+
+    })
+    .catch(function (error) {
+
+      console.log("Error: " + error);
+
+    });
+}
+
+function mostrarReviewsEnMiPerfil(){
+  baseDeDatos = firebase.firestore();
+  var referenciaReviews = baseDeDatos.collection('Reviews').where('usuario', '==', usuario).orderBy('fechaCreacion', 'desc');
+  referenciaReviews.get()
+
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+
+        var referenciaProductos = baseDeDatos.collection('Productos').doc(doc.data().idProducto);
+        referenciaProductos.get()
+
+          .then(function (doc2) {
+
+            var valoracionElegida = '';
+
+
+            for (i = 0; i < doc.data().valoracion; i++) {
+              valoracionElegida += '<i class="f7-icons estrellaReviewProducto">star_fill</i>';
+            }
+
+            for (i = doc.data().valoracion; i < 5; i++) {
+              valoracionElegida += '<i class="f7-icons estrellaReviewProducto">star</i>';
+            }
+
+
+            $$('#contenedorReviewsMiPerfil').append('<div class="row contenedorReviewIndividual" style="align-items:center;"><div class="col-20"><div class="row"><div class="col-100"><img src="' + doc2.data().miniaturaHome + '" class="avatarPaginaProducto"></div></div></div><div class="col-80" ><div class="row"><div class="col-100"><p class="tituloReviewEnPaginaMiPerfil">'+ doc2.data().nombreProducto + ' - ' + doc2.data().marcaProducto + '</p></div><div class="col-100" id="contenedorEstrellasReview">' + valoracionElegida + '</div><div class="col-100"><p class="tituloReviewEnPaginaProducto">' + doc.data().titulo + '</p></div><div class="col-100"><p class="contenidoReviewEnPaginaProducto">' + doc.data().texto + '</p></div></div></div></div>');
+
+
+          })
+          .catch(function (error) {
+
+            console.log("Error: ", error);
+
+          });
+
+
+      });
+
+    })
+
+    .catch(function (error) {
+
+      console.log("Error: ", error);
+
+    });
 
 }
 
@@ -680,7 +777,7 @@ function mostrarProductoEnPagina(idProducto) {
 
 function mostrarReviewsEnPaginaProducto(idProducto) {
   baseDeDatos = firebase.firestore();
-  var referenciaReviews = baseDeDatos.collection('Reviews').where('idProducto', '==', idProducto).orderBy('fechaCreacion','desc');
+  var referenciaReviews = baseDeDatos.collection('Reviews').where('idProducto', '==', idProducto).orderBy('fechaCreacion', 'desc');
   referenciaReviews.get()
 
     .then(function (querySnapshot) {
@@ -695,20 +792,20 @@ function mostrarReviewsEnPaginaProducto(idProducto) {
 
           .then(function (doc2) {
 
-            var valoracionElegida = ''; 
+            var valoracionElegida = '';
 
             sumaDeValoracionesProducto += doc.data().valoracion;
 
-            for(i=0; i<doc.data().valoracion; i++){
+            for (i = 0; i < doc.data().valoracion; i++) {
               valoracionElegida += '<i class="f7-icons estrellaReviewProducto">star_fill</i>';
             }
 
-            for(i=doc.data().valoracion; i<5; i++){
+            for (i = doc.data().valoracion; i < 5; i++) {
               valoracionElegida += '<i class="f7-icons estrellaReviewProducto">star</i>';
             }
 
 
-            $$('#contenedorReviewsGeneral').append('<div class="row contenedorReviewIndividual"><div class="col-20"><div class="row"><div class="col-100"><img src="' + doc2.data().fotoPerfilUsuario + '" class="avatarPaginaProducto"></div><div class="col-100"><p class="nombreUsuarioPaginaProducto">' + doc.data().usuario + '</p></div></div></div><div class="col-80" ><div class="row"><div class="col-100" id="contenedorEstrellasReview">'+valoracionElegida+ '</div><div class="col-100"><p class="tituloReviewEnPaginaProducto">' + doc.data().titulo + '</p></div><div class="col-100"><p class="contenidoReviewEnPaginaProducto">' + doc.data().texto + '</p></div></div></div></div>');
+            $$('#contenedorReviewsGeneral').append('<div class="row contenedorReviewIndividual"><div class="col-20"><div class="row"><div class="col-100"><img src="' + doc2.data().fotoPerfilUsuario + '" class="avatarPaginaProducto"></div><div class="col-100"><p class="nombreUsuarioPaginaProducto">' + doc.data().usuario + '</p></div></div></div><div class="col-80" ><div class="row"><div class="col-100" id="contenedorEstrellasReview">' + valoracionElegida + '</div><div class="col-100"><p class="tituloReviewEnPaginaProducto">' + doc.data().titulo + '</p></div><div class="col-100"><p class="contenidoReviewEnPaginaProducto">' + doc.data().texto + '</p></div></div></div></div>');
 
 
           })
@@ -756,10 +853,10 @@ function volverAtras() {
   mainView.router.back();
 }
 
-function registrarReviewEnBaseDeDatos(idProducto, usuario, contenidoReview, contenidoTituloReview, calificacionSeleccionadaReview){
- 
+function registrarReviewEnBaseDeDatos(idProducto, usuario, contenidoReview, contenidoTituloReview, calificacionSeleccionadaReview) {
+
   baseDeDatos = firebase.firestore();
- 
+
   var cargaDeDatosReview = {
     idProducto: idProducto,
     usuario: usuario,
@@ -767,15 +864,15 @@ function registrarReviewEnBaseDeDatos(idProducto, usuario, contenidoReview, cont
     titulo: contenidoTituloReview,
     valoracion: calificacionSeleccionadaReview,
     fechaCreacion: firebase.firestore.FieldValue.serverTimestamp()
-    };
+  };
 
-    baseDeDatos.collection("Reviews").doc().set(cargaDeDatosReview)
+  baseDeDatos.collection("Reviews").doc().set(cargaDeDatosReview)
 
-    .then(function(){
+    .then(function () {
       app.dialog.alert('Tu reseña se añadió correctamente', 'Yay!', volverAtras);
     })
 
-    .catch(function(error){
+    .catch(function (error) {
       console.error("El error fue: ", error);
     })
 

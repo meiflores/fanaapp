@@ -11,6 +11,15 @@
       </div>
   </div>
   -->
+
+
+  <div class="toolbar toolbar-bottom">
+    <div class="toolbar-inner" style="justify-content: center;">
+        <button disabled class="col button button-large button-fill botonGris disabled" id="botonGuardarCambiosMiPerfil">Guardar cambios</button>
+    </div>
+  </div>
+
+
     <div class="page-content">
       <h2 style="text-align: center;">Mi perfil</h2>
       <!--<div class="block-title">Mi perfil</div>-->
@@ -38,12 +47,13 @@
           
           <!--INICIO DEL FORMULARIO-->
           <div class="col-100">
+            <p id="tituloSobreMi" >Sobre mí - <a id="linkEditarTextArea">Editar</a></p>
            <form class="list" id="my-form-perfil">
             <ul>
               <li>
                 <div class="item-content item-input">
                   <div class="item-inner">
-                    <!--<div class="item-title item-label">E-mail</div>-->
+                    
                     <div class="item-input-wrap">
                       <textarea disabled placeholder="Contanos un poco sobre vos :)" id="textAreaBioMiPerfil" maxlength="200"></textarea>
                     </div>
@@ -57,15 +67,16 @@
   
         <!---FIN DEL FORMULARIO-->
           
+        <div class="row">
+            <div class="col-100" id="contenedorReviewsMiPerfil">
+                <p id="tituloMisReviews">Mis reviews</p>
+            </div>
+        </div>
           
           
           
         
-          <div class="col-100">
-            <p class="row">
-              <button class="col button button-large button-fill botonGris" id="botonFinalizar">¡Listo!</button>
-            </p>
-          </div>
+          
   
   
   

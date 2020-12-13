@@ -187,20 +187,35 @@ box-shadow: 3px 0px 7px 0px rgba(0,0,0,0.3);
   height: 35vw;
 }
 
+.tituloReviewEnPaginaMiPerfil{
+  color: #9b88c7;
+  margin: 0;
+  font-weight: 600;
+}
+
+#tituloSobreMi{
+  margin-bottom: 0;
+  margin-top: 30px;
+}
+
+#my-form-perfil{
+  margin: 0;
+}
+
 /* ESTILOS PAGINA PRODUCTO*/
 
 #tabsProductos{
-  border: 1px solid #47525E;
+  border: 1px solid #9E9E9E;
   border-radius: 5px;
 }
 
 #tabsProductos a{
-  color: #47525E;
+  color: #9E9E9E;
   height: 2em;
 }
 
 a.tab-link.col.tab-link-active{
-  background-color: #47525E;
+  background-color: #9E9E9E;
   border-radius: 5px;
   color: #ffffff !important;
 }
@@ -219,6 +234,7 @@ a.tab-link.col.tab-link-active{
 .avatarPaginaProducto{
   width: 100%;
   border-radius: 50%;
+  border: 1px solid #B2A4D4;
 }
 
 .nombreUsuarioPaginaProducto{
@@ -245,12 +261,12 @@ a.tab-link.col.tab-link-active{
 
 .estrellaReviewProducto{
   font-size: 1.3em;
-  color: #47525E;
+  color: #9E9E9E;
 }
 
 .estrellaCalificacionProducto{
   font-size: 2.5em;
-  color: #47525E;
+  color: #9E9E9E;
 }
 
 #contenedorCalificacionProducto{
@@ -297,5 +313,5 @@ a.tab-link.col.tab-link-active{
 
 .estrellaCalificacionReview{
   font-size: 2em;
-  color: #47525E;
+  color: #9E9E9E;
 }
