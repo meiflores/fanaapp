@@ -460,7 +460,6 @@ function funcionRegistro2() {
   baseDeDatos.collection("Usuarios").doc(usuario).update
     ({
       bioPerfil: textoBio,
-      fotoPerfilUsuario: fotoPerfilUsuario
     })
     .then(function () {
 
@@ -575,15 +574,31 @@ function onSuccessCamera(imageURI) {
           uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
             console.log('File available at', downloadURL);
             fotoPerfilUsuario=downloadURL;
+            actualizarFotoPerfil();
           });
       });
   });
 
-
-
-
 }
 
+function actualizarFotoPerfil(){
+
+  
+  baseDeDatos.collection("Usuarios").doc(usuario).update
+    ({
+      fotoPerfilUsuario: fotoPerfilUsuario
+    })
+    .then(function () {
+
+      console.log("Se actualizó la imagen de perfil");
+
+    })
+    .catch(function (error) {
+
+      console.log("Error: " + error);
+
+    });
+}
 
 
 function onErrorCamera(message) {
