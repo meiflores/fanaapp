@@ -96,12 +96,15 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   //console.log(e);
   $$('#botonInicioSesion').on('click', funcionLogin);
   $$('#botonRegistrate').on('click', funcionRegistrate);
-  $$('#botonReestablecerPassword').on('click', funcionReestablecerPassword);
+  $$('#botonReestablecerPassword').on('click', funcionIrPaginaPassword);
+  $$('#linkCerrarSesion').on('click', function(){
+    $$('.appbar').addClass('oculto');
+  })
 })
 
 
 $$(document).on('page:init', '.page[data-name="reestablecerPassword"]', function (e) {
-
+  $$('#enviarMailPassword').on('click', funcionReestablecerPassword);
 })
   
 
@@ -446,10 +449,24 @@ function funcionRegistro2() {
   mainView.router.navigate('/home/');
 }
 
-function funcionReestablecerPassword(){
+function funcionIrPaginaPassword(){
   mainView.router.navigate('/reestablecerPassword/');
 }
 
+
+//FUNCIONES REESTABLECER PASSWORD
+
+function funcionReestablecerPassword(){
+var mailParaRecuperar = $$('#inputReestablecerPassword').val();  
+var auth = firebase.auth();
+
+auth.sendPasswordResetEmail(mailParaRecuperar).then(function() {
+  // Email sent.
+console.log('Mail enviado');
+}).catch(function(error) {
+  // An error happened.
+});
+}
 
 
 // FUNCIONES CAMARA Y GALERÍA
