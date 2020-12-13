@@ -141,22 +141,51 @@ box-shadow: 3px 0px 7px 0px rgba(0,0,0,0.3);
   position: relative;
 }
 
-#iconoCamaraPerfil{
+.iconoCamaraPerfil{
   position: absolute;
   bottom: 5px;
   left: 60%;
   border-radius: 50%;
-  background-color: pink;
-  padding: 5px;
+  background-color: #B2A4D4;
+  padding: 8px;
+  color: #ffffff;
 
 }
 
-#iconoCamaraPerfil .f7-icons{
+.iconoCamaraPerfil .f7-icons{
   font-size: 1.5em;
 }
 
 
+/* ESTILOS PAGINA MI PERFIL */
 
+#contenedorImagenMiPerfil{
+  position: relative;
+}
+
+#nombreApellidoMiPerfil{
+  font-size: 1.2em;
+  margin: 5px 0 0 0;
+}
+
+#nombreUsuarioMiPerfil{
+  font-weight: 100;
+  margin: 0;
+  font-size: 1.2em;
+}
+
+#textAreaBioMiPerfil{
+  font-weight: 100;
+  text-align: justify;
+  font-style: italic;
+}
+
+.imagenPerfil{
+  border-radius: 50%; 
+  border:1px solid #B2A4D4; 
+  width: 35vw; 
+  height: 35vw;
+}
 
 /* ESTILOS PAGINA PRODUCTO*/
 

@@ -28,8 +28,8 @@ var app = new Framework7({
       url: 'registracion2.html',
     },
     {
-      path: '/panel/',
-      url: 'panel.html',
+      path: '/perfil/',
+      url: 'perfil.html',
     },
     {
       path: '/paginaProducto/:id/',
@@ -150,10 +150,36 @@ $$(document).on('page:init', '.page[data-name="registracion2"]', function (e) {
 $$('#nombreUsuarioPerfil').text(usuario);
 
 })
-$$(document).on('page:init', '.page[data-name="panel"]', function (e) {
-  // Do something here when page with data-name="about" attribute loaded and initialized
-  //console.log(e);
+
+
+
+$$(document).on('page:init', '.page[data-name="perfil"]', function (e) {
+  
+  mostrarDatosPerfil(usuario);
+
+  var actionSheetCamaraMiPerfil = app.actions.create({
+    buttons: [
+      {
+        text: 'Tomar foto',
+        onClick: function(){funcionCamara();}
+      },
+      {
+        text: 'Elegir de la galería',
+        onClick: function(){funcionGaleria();}
+      }
+    ]
+  })
+
+  $$('#iconoCamaraMiPerfil').on('click', function () {
+    actionSheetCamaraMiPerfil.open();
+});
+
 })
+
+
+
+
+
 $$(document).on('page:init', '.page[data-name="home"]', function (e) {
   
   $$('.appbar').removeClass('oculto');
@@ -461,9 +487,27 @@ var mailParaRecuperar = $$('#inputReestablecerPassword').val();
 var auth = firebase.auth();
 
 auth.sendPasswordResetEmail(mailParaRecuperar).then(function() {
-  // Email sent.
+
+  var toastIcon = app.toast.create({
+    icon:'<i class="f7-icons">checkmark_alt</i>',
+    text: '¡Mail enviado!',
+    position: 'center',
+    closeTimeout: 2000,
+});
+
+toastIcon.open();
+
 console.log('Mail enviado');
 }).catch(function(error) {
+  console.log(error);
+  var toastIconError = app.toast.create({
+    icon:'<i class="f7-icons">xmark</i>',
+    text: 'Ups! Hubo un error',
+    position: 'center',
+    closeTimeout: 2000,
+});
+
+toastIconError.open();
   // An error happened.
 });
 }
@@ -545,6 +589,34 @@ function onSuccessCamera(imageURI) {
 function onErrorCamera(message) {
   alert('Failed because: ' + message);
 }
+
+
+
+// FUNCIONES PERFIL
+
+function mostrarDatosPerfil(usuario){
+  $$('#nombreUsuarioMiPerfil').text(usuario);
+
+  baseDeDatos = firebase.firestore();
+  var referenciaUsuarios = baseDeDatos.collection('Usuarios').doc(usuario);
+  referenciaUsuarios.get()
+
+    .then(function (doc) {
+      $$('#fotoMiPerfil').attr('src', doc.data().fotoPerfilUsuario);
+      $$('#textAreaBioMiPerfil').text(doc.data().bioPerfil);
+      $$('#nombreApellidoMiPerfil').text(doc.data().nombre +' '+ doc.data().apellido)
+    })
+    .catch(function (error) {
+
+      console.log("Error: ", error);
+
+    });
+
+
+}
+
+
+
 
 
 //FUNCIONES HOME
