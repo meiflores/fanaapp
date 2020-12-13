@@ -62,6 +62,7 @@ var coleccionUsuarios;
 var usuario;
 var fotoPerfilUsuario = "https://firebasestorage.googleapis.com/v0/b/fana-app.appspot.com/o/FotosDePerfil%2FprofileAvatar.png?alt=media&token=22c8168c-d4ef-42d3-bb60-b384975285e5";
 
+
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
   console.log("Device is ready!");
