@@ -679,7 +679,7 @@ function funcionActualizarBioMiPerfil() {
     });
 }
 
-function mostrarReviewsEnMiPerfil(){
+function mostrarReviewsEnMiPerfil() {
   baseDeDatos = firebase.firestore();
   var referenciaReviews = baseDeDatos.collection('Reviews').where('usuario', '==', usuario).orderBy('fechaCreacion', 'desc');
   referenciaReviews.get()
@@ -704,7 +704,7 @@ function mostrarReviewsEnMiPerfil(){
             }
 
 
-            $$('#contenedorReviewsMiPerfil').append('<div class="row contenedorReviewIndividual" style="align-items:center;"><div class="col-20"><div class="row"><div class="col-100"><img src="' + doc2.data().miniaturaHome + '" class="avatarPaginaProducto"></div></div></div><div class="col-80" ><div class="row"><div class="col-100"><p class="tituloReviewEnPaginaMiPerfil">'+ doc2.data().nombreProducto + ' - ' + doc2.data().marcaProducto + '</p></div><div class="col-100" id="contenedorEstrellasReview">' + valoracionElegida + '</div><div class="col-100"><p class="tituloReviewEnPaginaProducto">' + doc.data().titulo + '</p></div><div class="col-100"><p class="contenidoReviewEnPaginaProducto">' + doc.data().texto + '</p></div></div></div></div>');
+            $$('#contenedorReviewsMiPerfil').append('<div class="row contenedorReviewIndividual" style="align-items:center;"><div class="col-20"><div class="row"><div class="col-100"><img src="' + doc2.data().miniaturaHome + '" class="avatarPaginaProducto"></div></div></div><div class="col-80" ><div class="row"><div class="col-100"><p class="tituloReviewEnPaginaMiPerfil">' + doc2.data().nombreProducto + ' - ' + doc2.data().marcaProducto + '</p></div><div class="col-100" id="contenedorEstrellasReview">' + valoracionElegida + '</div><div class="col-100"><p class="tituloReviewEnPaginaProducto">' + doc.data().titulo + '</p></div><div class="col-100"><p class="contenidoReviewEnPaginaProducto">' + doc.data().texto + '</p></div></div></div></div>');
 
 
           })
@@ -876,5 +876,39 @@ function registrarReviewEnBaseDeDatos(idProducto, usuario, contenidoReview, cont
       console.error("El error fue: ", error);
     })
 
+  var referenciaProductos = baseDeDatos.collection('Productos').doc(idProducto);
+  referenciaProductos.get()
 
+    .then(function (doc) {
+
+      var cantidadDeReviewsProducto = doc.data().cantidadDeReviews;
+      cantidadDeReviewsProducto++;
+      var calificacionTotalActual = doc.data().calificacionPromedio * doc.data().cantidadDeReviews;
+      var nuevaCalificacionPromedio = (calificacionTotalActual + calificacionSeleccionadaReview) / cantidadDeReviewsProducto;
+
+      console.log(nuevaCalificacionPromedio);
+
+      referenciaProductos.update
+        ({
+          cantidadDeReviews: cantidadDeReviewsProducto,
+          calificacionPromedio: nuevaCalificacionPromedio
+        })
+        .then(function () {
+
+          console.log("Se actualizó el promedio del producto");
+
+        })
+        .catch(function (error) {
+
+          console.log("Error: " + error);
+
+        });
+
+    })
+    .catch(function (error) {
+
+      console.log("Error: ", error);
+
+    });
 }
+
