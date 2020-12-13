@@ -538,7 +538,7 @@ function funcionCamara() {
 }
 
 function onSuccessCamera(imageURI) {
-  $$('#fotoPerfil').attr('src', imageURI);
+  $$('.imagenPerfil').attr('src', imageURI);
 
   var storageRef = firebase.storage().ref();
   var getFileBlob = function(url, cb) {
