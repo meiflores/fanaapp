@@ -284,6 +284,47 @@ a.tab-link.col.tab-link-active{
   border-bottom: 1px solid gray;
 }
 
+
+.contenedorNombreMarca{
+  background-color: #f4f4f4;
+  padding: 5px;
+}
+
+.contenedorImagenHome{
+  padding: 5px;
+}
+
+#homeMedio{
+  height: auto;
+}
+
+
+.contenedorProductoHome{
+  margin-bottom: 5%;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 5px -2px rgba(0,0,0,0.61);
+  -moz-box-shadow: 0px 0px 5px -2px rgba(0,0,0,0.61);
+  box-shadow: 0px 0px 5px -2px rgba(0,0,0,0.61);
+}
+
+.contenedorProductoHome img{
+  width: 100%;
+}
+
+.nombreProductoHome{
+  height: 4em;
+  font-size: 0.8em;
+  margin: 0;
+}
+
+.marcaProductoHome{
+  height: 2em;
+  font-size: 0.8em;
+  margin: 0;
+  color: gray;
+}
+
+
 /* ESTILOS APPBAR*/
 
 .oculto{

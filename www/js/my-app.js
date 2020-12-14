@@ -36,6 +36,10 @@ var app = new Framework7({
       url: 'paginaProducto.html',
     },
     {
+      path: '/resultadoBusqueda/:busqueda/',
+      url: 'resultadoBusqueda.html',
+    },
+    {
       path: '/paginaDejarReview/:id/',
       url: 'paginaDejarReview.html',
     },
@@ -100,6 +104,29 @@ $$(document).on('page:init', '.page[data-name="index"]', function (e) {
   $$('#linkCerrarSesion').on('click', function () {
     $$('.appbar').addClass('oculto');
   })
+
+  $$('#iconoBuscador').on('click', function(){
+    $$('#iconoBuscador').addClass('oculto');
+    $$('.searchbar').removeClass('oculto');
+    $$('#inputBuscador').focus();
+    $$('#tituloApp').addClass('oculto');
+
+  })
+
+  $$('#inputBuscador').focusout(function(){
+    $$('.searchbar').addClass('oculto');
+    $$('#iconoBuscador').removeClass('oculto');
+    $$('#tituloApp').removeClass('oculto');
+  })
+
+  $$('#inputBuscador').keypress(function(e){
+    if(e.which == 13){
+      var textoBusqueda = $$('#inputBuscador').val();
+      mainView.router.navigate('/resultadoBusqueda/' + textoBusqueda + '/');
+      //alert('Probando busqueda bbito');
+    }
+  })
+
 })
 
 
@@ -214,7 +241,27 @@ $$(document).on('page:init', '.page[data-name="home"]', function (e) {
 
 
 
+
 })
+
+
+$$(document).on('page:init', '.page[data-name="resultadoBusqueda"]', function (e) {
+
+  var textoBusqueda = app.view.main.router.currentRoute.params.busqueda;
+  console.log(textoBusqueda);
+  $$('.tituloResultadosBusqueda').empty();
+  $$('.tituloResultadosBusqueda').append('Resultados para "'+textoBusqueda+'"');
+  buscarProductosBusqueda(textoBusqueda);
+
+  $$('body').on('click', '.contenedorProductoHome', function () {
+    var idProducto = $$(this).attr('id');
+    //console.log(idProducto);
+    mainView.router.navigate('/paginaProducto/' + idProducto + '/');
+  });
+
+})
+
+
 
 $$(document).on('page:reinit', '.page[data-name="home"]', function (e) {
   $$('#flechaAtras').addClass('oculto');
@@ -742,7 +789,7 @@ function mostrarProductos() {
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         //console.log(doc.data().nombreProducto + " " + doc.data().marcaProducto + " " + doc.data().calificacionProducto);
-        $$('#contenedorMiniaturasHome').append('<div class="col-33 contenedorProductoHome" id="' + doc.id + '"><div class="row"><div class="col-100" id="contenedorImagenHome"><img src="' + doc.data().miniaturaHome + '"></div><div class="col-100 text-align-center"><p class="nombreProductoHome">' + doc.data().nombreProducto + '</p><p class="marcaProductoHome">' + doc.data().marcaProducto + '</p></div></div> </div>');
+        $$('#contenedorMiniaturasHome').append('<div class="col-33 contenedorProductoHome" id="' + doc.id + '"><div class="row"><div class="col-100 contenedorImagenHome"><img src="' + doc.data().miniaturaHome + '"></div><div class="col-100 text-align-center contenedorNombreMarca"><p class="nombreProductoHome">' + doc.data().nombreProducto + '</p><p class="marcaProductoHome">' + doc.data().marcaProducto + '</p></div></div> </div>');
       });
     })
     .catch(function (error) {
@@ -766,6 +813,32 @@ function mostrarProductoEnPagina(idProducto) {
       $$('#descripcionProducto').text(doc.data().descripcionProducto);
       $$('#ingredientesProducto').text(doc.data().ingredientesProducto);
       $$('#bannerProducto').attr('src', doc.data().bannerProducto);
+      var calificacionGeneralProducto  = doc.data().calificacionPromedio;
+
+      console.log(calificacionGeneralProducto);
+
+      if(calificacionGeneralProducto < 1){
+        $$('#contenedorCalificacionProducto').append('<i class="f7-icons estrellaCalificacionProducto">star</i><i class="f7-icons estrellaCalificacionProducto">star</i><i class="f7-icons estrellaCalificacionProducto">star</i><i class="f7-icons estrellaCalificacionProducto">star</i><i class="f7-icons estrellaCalificacionProducto">star</i>');
+      }else if(calificacionGeneralProducto == 1){
+        $$('#contenedorCalificacionProducto').append('<i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star</i><i class="f7-icons estrellaCalificacionProducto">star</i><i class="f7-icons estrellaCalificacionProducto">star</i><i class="f7-icons estrellaCalificacionProducto">star</i>');
+      }else if(calificacionGeneralProducto > 1 && calificacionGeneralProducto < 2){
+        $$('#contenedorCalificacionProducto').append('<i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_lefthalf_fill</i><i class="f7-icons estrellaCalificacionProducto">star</i><i class="f7-icons estrellaCalificacionProducto">star</i><i class="f7-icons estrellaCalificacionProducto">star</i>');
+      }else if(calificacionGeneralProducto == 2){
+        $$('#contenedorCalificacionProducto').append('<i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star</i><i class="f7-icons estrellaCalificacionProducto">star</i><i class="f7-icons estrellaCalificacionProducto">star</i>');
+      }else if(calificacionGeneralProducto > 2 && calificacionGeneralProducto < 3){
+        $$('#contenedorCalificacionProducto').append('<i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_lefthalf_fill</i><i class="f7-icons estrellaCalificacionProducto">star</i><i class="f7-icons estrellaCalificacionProducto">star</i>');
+      }else if(calificacionGeneralProducto == 3){
+        $$('#contenedorCalificacionProducto').append('<i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star</i><i class="f7-icons estrellaCalificacionProducto">star</i>');
+      }else if(calificacionGeneralProducto > 3 && calificacionGeneralProducto < 4){
+        $$('#contenedorCalificacionProducto').append('<i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_lefthalf_fill</i><i class="f7-icons estrellaCalificacionProducto">star</i>');
+      }else if(calificacionGeneralProducto == 4){
+        $$('#contenedorCalificacionProducto').append('<i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star</i>');
+      }else if(calificacionGeneralProducto > 4 && calificacionGeneralProducto < 5){
+        $$('#contenedorCalificacionProducto').append('<i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_lefthalf_fill</i>');
+      }else{
+        $$('#contenedorCalificacionProducto').append('<i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i><i class="f7-icons estrellaCalificacionProducto">star_fill</i>');
+      }
+
 
     })
     .catch(function (error) {
@@ -783,8 +856,6 @@ function mostrarReviewsEnPaginaProducto(idProducto) {
     .then(function (querySnapshot) {
       $$('#contenedorReviewsGeneral').empty();
 
-      var sumaDeValoracionesProducto = 0;
-
       querySnapshot.forEach(function (doc) {
 
         var referenciaUsuarios = baseDeDatos.collection('Usuarios').doc(doc.data().usuario);
@@ -794,7 +865,6 @@ function mostrarReviewsEnPaginaProducto(idProducto) {
 
             var valoracionElegida = '';
 
-            sumaDeValoracionesProducto += doc.data().valoracion;
 
             for (i = 0; i < doc.data().valoracion; i++) {
               valoracionElegida += '<i class="f7-icons estrellaReviewProducto">star_fill</i>';
@@ -817,9 +887,6 @@ function mostrarReviewsEnPaginaProducto(idProducto) {
 
 
       });
-
-      console.log(sumaDeValoracionesProducto);
-
     })
 
     .catch(function (error) {
@@ -910,5 +977,39 @@ function registrarReviewEnBaseDeDatos(idProducto, usuario, contenidoReview, cont
       console.log("Error: ", error);
 
     });
+}
+
+// FUNCIONES PAGINA RESULTADOS BUSQUEDA
+
+function buscarProductosBusqueda(textoBusqueda){
+  baseDeDatos = firebase.firestore();
+      var referenciaProductos = baseDeDatos.collection('Productos');
+      referenciaProductos.get()
+
+        .then(function (querySnapshot) {
+          $$('.contenedorMiniaturasBusqueda').empty();
+          var nombreProductoBusqueda;
+          var marcaProductoBusqueda;
+
+          querySnapshot.forEach(function (doc) {
+
+            nombreProductoBusqueda = doc.data().nombreProducto;
+            marcaProductoBusqueda = doc.data().marcaProducto;
+
+            if(nombreProductoBusqueda.toLowerCase().indexOf(textoBusqueda.toLowerCase())!= -1){
+
+              $$('.contenedorMiniaturasBusqueda').append('<div class="col-33 contenedorProductoHome" id="' + doc.id + '"><div class="row"><div class="col-100 contenedorImagenHome"><img src="' + doc.data().miniaturaHome + '"></div><div class="col-100 text-align-center contenedorNombreMarca"><p class="nombreProductoHome">' + doc.data().nombreProducto + '</p><p class="marcaProductoHome">' + doc.data().marcaProducto + '</p></div></div> </div>');
+
+            }else if(marcaProductoBusqueda.toLowerCase().indexOf(textoBusqueda.toLowerCase())!= -1){
+              $$('.contenedorMiniaturasBusqueda').append('<div class="col-33 contenedorProductoHome" id="' + doc.id + '"><div class="row"><div class="col-100 contenedorImagenHome"><img src="' + doc.data().miniaturaHome + '"></div><div class="col-100 text-align-center contenedorNombreMarca"><p class="nombreProductoHome">' + doc.data().nombreProducto + '</p><p class="marcaProductoHome">' + doc.data().marcaProducto + '</p></div></div> </div>');
+            }
+          });
+        })
+
+        .catch(function (error) {
+
+          console.log("Error: ", error);
+
+        });
 }
 
