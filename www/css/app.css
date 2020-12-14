@@ -78,6 +78,25 @@
        url('../fonts/poppins-v13-latin-900italic.svg#Poppins') format('svg'); /* Legacy iOS */
 }
 
+@font-face {
+  font-family: 'Audrey';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../fonts/audrey-normal-webfont.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/audrey-normal-webfont.woff') format('woff'), /* Modern Browsers */
+      
+ 
+}
+
+@font-face {
+  font-family: 'Sophia';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../fonts/sophiachristie-webfont.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/sophiachristie-webfont.woff') format('woff'), /* Modern Browsers */
+      url('../fonts/SophiaChristie.ttf') format('truetype'), /* Safari, Android, iOS */
+}
+
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap');
 
@@ -107,7 +126,7 @@
 }
 
 .appbar-inner .f7-icons{
-  color: #000000;
+  color: gray;
 }
 
 .botonGris{
@@ -202,6 +221,11 @@ box-shadow: 3px 0px 7px 0px rgba(0,0,0,0.3);
   margin: 0;
 }
 
+.tituloMiPerfil{
+  text-align: center;
+  font-weight: 100;
+}
+
 /* ESTILOS PAGINA PRODUCTO*/
 
 #tabsProductos{
@@ -257,6 +281,8 @@ a.tab-link.col.tab-link-active{
   margin: 0;
   height: auto;
   text-align: justify;
+  font-size: 0.9em;
+  font-style: italic;
 }
 
 .estrellaReviewProducto{
@@ -324,6 +350,14 @@ a.tab-link.col.tab-link-active{
   color: gray;
 }
 
+.tituloProducto{
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+#contenedorReviewsGeneral{
+  padding-bottom: 70px;
+}
 
 /* ESTILOS APPBAR*/
 
@@ -344,11 +378,11 @@ a.tab-link.col.tab-link-active{
 #caracteresFaltantesTextAreaReview{
   margin: 0;
   font-size: 0.8em;
-  color: gray;
+  color: #9b88c7;
 }
 
 #contenedorCalificacionProductoReview{
-  padding: 10px 0;
+  padding: 25px 0;
   text-align: center;
 }
 

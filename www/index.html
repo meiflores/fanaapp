@@ -41,10 +41,11 @@
           <a href="#" class="button button-small panel-toggle display-flex" data-panel="left" id="iconoMenu">
             <i class="f7-icons">bars</i>
           </a>
-            <i class="f7-icons oculto" id="flechaAtras">arrow_left</i>
+          <i class="f7-icons oculto" id="flechaAtras">arrow_left</i>
         </div>
-        <div class="center">
-          <p id="tituloApp">Espacio Fana</p>
+        <div class="center" style="height: 100%;">
+          <img id="tituloApp" src="img/fana.png" style=height:80%;>
+          <!--<p id="tituloApp"><span style="font-family: Audrey;">espacio</span><span style="font-family: Sophia;"> fana</span></p>-->
         </div>
         <div class="right">
           <div class="searchbar searchbar-inline oculto">
@@ -73,7 +74,7 @@
     <!-- Statusbar overlay -->
     <div class="statusbar"></div>
 
-    
+
 
 
 
@@ -97,21 +98,26 @@
                 </div>
                 -->
 
-        
+
 
         <!-- Scrollable page content -->
         <div class="page-content">
           
-          <div class="row contenidoCentrado" >
-            <div class="col">
-              <div class="block">
-                <h2 style="text-align: center;">¡Bienvenidx!</h2>
-    
-    
-    
+            <div style="padding: 10px; flex-direction: column; justify-content: center;" class="row contenidoCentrado">
+              <div class="col-100">
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/fana-app.appspot.com/o/Recursos%2FlogoFana_Mesa%20de%20trabajo%201.png?alt=media&token=7130b0d2-d2f6-4ec6-a136-355359a5fd32"
+                  style="width: 100%;">
+              </div>
+              <div class="col">
+
+                <h2 style="text-align: center; font-weight: 100;">¡Bienvenidx!</h2>
+
+
+
                 <!---INICIO DEL FORMULARIO-->
-    
-    
+
+
                 <form class="list" id="my-form">
                   <ul>
                     <li>
@@ -136,26 +142,28 @@
                     </li>
                   </ul>
                 </form>
-    
+
                 <div id="mensajeLogin"></div>
                 <div class="block">
                   <p class="row">
-                    <button class="col button button-large button-fill botonGris" id="botonInicioSesion">Iniciar sesión</button>
+                    <button class="col button button-large button-fill botonGris" id="botonInicioSesion">Iniciar
+                      sesión</button>
                   </p>
                 </div>
-    
+
                 <!---FIN DEL FORMULARIO-->
-    
-                <p class="text-align-center">Si olvidaste tu contraseña hace click <a id="botonReestablecerPassword">acá.</a></p>
+
+                <p class="text-align-center">Si olvidaste tu contraseña hace click <a
+                    id="botonReestablecerPassword">acá.</a></p>
                 <p class="text-align-center">¿Primera vez por acá? <a id="botonRegistrate">Registrate.</a></p>
-    
-    
+
+
+
+
+
+
               </div>
-
-
-
             </div>
-          </div>
 
 
 

@@ -239,8 +239,13 @@ $$(document).on('page:init', '.page[data-name="home"]', function (e) {
     mainView.router.navigate('/paginaProducto/' + idProducto + '/');
   });
 
+  $$('#homeSuperior').on('click', function(){
+    mainView.router.navigate('/paginaProducto/lIFRMEhVemsQImCeC8hQ/');
+  })
 
-
+  $$('#homeInferior').on('click', function(){
+    mainView.router.navigate('/paginaProducto/8Xt9r85KyjMXgG8Yq3iS/');
+  })
 
 })
 
@@ -516,7 +521,7 @@ function funcionRegistro1() {
 
 function funcionRegistrate() {
   mainView.router.navigate('/registracion1/');
-  $$('#mensajeLogin').text('Estoy funcionando');
+
 }
 
 
