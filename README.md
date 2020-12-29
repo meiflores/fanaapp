@@ -1,22 +1,13 @@
+## ¡Hola! Bienvenidx a Espacio Fana :)
 
-# Bienvenid@!! 
 
-En este repositorio podés encontrar un template de Framework7 listo para usar para el desarrollo de aplicaciones con Apache Cordova.
+Espacio Fana es una aplicación en desarrollo que tiene como objetivo encontrar en un solo lugar reseñas sobre productos de belleza y cuidado de la piel. Las mismas serán provistas por lxs usuarixs que se hayan registrado previamente en la app e incluirán en todos los casos texto y una calificación, y de manera opcional fotos para dar una opinión más completa. 
 
-## Qué es [Framework7](https://framework7.io/)?
+Podremos acceder tanto a nuestro perfil como al del resto de lxs colaboradorxs y visualizar ahí todas las reseñas del/ de la usuarix en cuestión.
 
-Es un framework CSS con una librería propia de manejo del DOM, similar a JQuery.
-El resultado de las aplicaciones respeta los estilos de iOS/Android como si fueran nativas.
+Gracias por leerme!
 
-## [Apache Cordova](https://cordova.apache.org/)
+Mei.
 
-Nos permite el desarrollo de aplicaciones híbridas. Y de esta manera con un solo código poner tener aplicaciones para Android e iOS.
 
-## Cómo descargo el template?
-
-Crea y/o ingresa a tu carpeta inicial del desarrollo. Descarga el template con el comando:
-
-    git clone https://github.com/JorgePHI/f7-v5711
-
-Ingresando luego en la carpeta f7-v5711 podrá usar el template de Framework 7, Version 5.7.11
 
